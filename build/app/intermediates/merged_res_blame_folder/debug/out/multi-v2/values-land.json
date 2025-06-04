@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.mycompany.aproom.app-mergeDebugResources-35:/values-land/values-land.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Matcha_\\.gradle\\caches\\8.9\\transforms\\c335a0b2cd38096c54bd0091be8462e8\\transformed\\appcompat-1.2.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                }
+            ]
+        }
+    ]
+}
