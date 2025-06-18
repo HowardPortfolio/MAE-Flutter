@@ -79,7 +79,7 @@ class _AdminNavigationWidgetState extends State<AdminNavigationWidget> {
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(ReservationWidget.routeName);
+                        context.pushNamed(AdminReservationWidget.routeName);
                       },
                     ),
                   ),
@@ -96,7 +96,7 @@ class _AdminNavigationWidgetState extends State<AdminNavigationWidget> {
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(NotificationWidget.routeName);
+                        context.pushNamed(AdminAnnouncementWidget.routeName);
                       },
                     ),
                   ),
@@ -113,7 +113,7 @@ class _AdminNavigationWidgetState extends State<AdminNavigationWidget> {
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(HomeWidget.routeName);
+                        context.pushNamed(AdminHomeWidget.routeName);
                       },
                     ),
                   ),
@@ -130,7 +130,7 @@ class _AdminNavigationWidgetState extends State<AdminNavigationWidget> {
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(SettingsWidget.routeName);
+                        context.pushNamed(AdminSettingsWidget.routeName);
                       },
                     ),
                   ),

@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -9,7 +10,12 @@ import 'receptionist_confirm_model.dart';
 export 'receptionist_confirm_model.dart';
 
 class ReceptionistConfirmWidget extends StatefulWidget {
-  const ReceptionistConfirmWidget({super.key});
+  const ReceptionistConfirmWidget({
+    super.key,
+    required this.bookingid,
+  });
+
+  final DocumentReference? bookingid;
 
   static String routeName = 'ReceptionistConfirm';
   static String routePath = '/receptionistConfirm';
@@ -54,17 +60,15 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   FlutterFlowIconButton(
-                    borderColor: Color(0xFFE0E3E7),
                     borderRadius: 30.0,
-                    borderWidth: 2.0,
                     buttonSize: 44.0,
                     icon: Icon(
-                      Icons.close_rounded,
+                      Icons.arrow_back_ios_new,
                       color: Color(0xFF57636C),
-                      size: 25.0,
+                      size: 24.0,
                     ),
                     onPressed: () async {
-                      context.pushNamed(HomeWidget.routeName);
+                      context.pushNamed(ReceptionistHomeWidget.routeName);
                     },
                   ),
                 ],
@@ -112,21 +116,45 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-              child: Text(
-                'Room: A-5-03',
-                style: FlutterFlowTheme.of(context).displayLarge.override(
-                      font: GoogleFonts.outfit(
-                        fontWeight: FontWeight.normal,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).displayLarge.fontStyle,
+              child: StreamBuilder<BookingRecord>(
+                stream: BookingRecord.getDocument(widget.bookingid!),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
                       ),
-                      color: Color(0xFF14181B),
-                      fontSize: 40.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.normal,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).displayLarge.fontStyle,
-                    ),
+                    );
+                  }
+
+                  final amountBookingRecord = snapshot.data!;
+
+                  return Text(
+                    'Room: ${amountBookingRecord.roomID}',
+                    style: FlutterFlowTheme.of(context).displayLarge.override(
+                          font: GoogleFonts.outfit(
+                            fontWeight: FontWeight.normal,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .displayLarge
+                                .fontStyle,
+                          ),
+                          color: Color(0xFF14181B),
+                          fontSize: 40.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .displayLarge
+                              .fontStyle,
+                        ),
+                  );
+                },
               ),
             ),
             Padding(
@@ -177,49 +205,103 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 4.0),
-                              child: Text(
-                                'Booked date: 13th May 2025',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      font: GoogleFonts.plusJakartaSans(
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
+                              child: StreamBuilder<BookingRecord>(
+                                stream: BookingRecord.getDocument(
+                                    widget.bookingid!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
                                       ),
-                                      color: Color(0xFF14181B),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.normal,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .fontStyle,
-                                    ),
+                                    );
+                                  }
+
+                                  final textBookingRecord = snapshot.data!;
+
+                                  return Text(
+                                    'Booked date: ${dateTimeFormat("EEEE, dd/MM/yyyy", textBookingRecord.bookingDate)}',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          font: GoogleFonts.plusJakartaSans(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF14181B),
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                        ),
+                                  );
+                                },
                               ),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 4.0),
-                              child: Text(
-                                '8:30AM until 10:30AM',
-                                style: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.plusJakartaSans(
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
+                              child: StreamBuilder<BookingRecord>(
+                                stream: BookingRecord.getDocument(
+                                    widget.bookingid!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
                                       ),
-                                      color: Color(0xFF57636C),
-                                      fontSize: 14.0,
-                                      letterSpacing: 1.1,
-                                      fontWeight: FontWeight.normal,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
+                                    );
+                                  }
+
+                                  final textBookingRecord = snapshot.data!;
+
+                                  return Text(
+                                    textBookingRecord.bookingTime,
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          font: GoogleFonts.plusJakartaSans(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF57636C),
+                                          fontSize: 14.0,
+                                          letterSpacing: 1.1,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                  );
+                                },
                               ),
                             ),
                           ],

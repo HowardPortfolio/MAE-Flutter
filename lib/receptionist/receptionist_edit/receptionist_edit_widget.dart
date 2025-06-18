@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -12,7 +13,12 @@ import 'receptionist_edit_model.dart';
 export 'receptionist_edit_model.dart';
 
 class ReceptionistEditWidget extends StatefulWidget {
-  const ReceptionistEditWidget({super.key});
+  const ReceptionistEditWidget({
+    super.key,
+    required this.bookingid,
+  });
+
+  final DocumentReference? bookingid;
 
   static String routeName = 'ReceptionistEdit';
   static String routePath = '/receptionistEdit';
@@ -31,10 +37,8 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
     super.initState();
     _model = createModel(context, () => ReceptionistEditModel());
 
-    _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
   }
 
@@ -66,25 +70,47 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          'Editing Booking: A-5-03',
-                          style: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .override(
-                                font: GoogleFonts.outfit(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .headlineMedium
-                                      .fontStyle,
+                        StreamBuilder<BookingRecord>(
+                          stream: BookingRecord.getDocument(widget.bookingid!),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
                                 ),
-                                color: Color(0xFF14181B),
-                                fontSize: 24.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .headlineMedium
-                                    .fontStyle,
-                              ),
+                              );
+                            }
+
+                            final textBookingRecord = snapshot.data!;
+
+                            return Text(
+                              'Editing Booking: ${textBookingRecord.roomID}',
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .override(
+                                    font: GoogleFonts.outfit(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF14181B),
+                                    fontSize: 24.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
+                                  ),
+                            );
+                          },
                         ),
                         Align(
                           alignment: AlignmentDirectional(-1.0, 0.0),
@@ -92,7 +118,7 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                             borderRadius: 8.0,
                             buttonSize: 40.0,
                             icon: Icon(
-                              Icons.arrow_forward_ios,
+                              Icons.arrow_back_ios_new,
                               color: Colors.black,
                               size: 24.0,
                             ),
@@ -120,95 +146,118 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                         )
                       ],
                     ),
-                    child: FlutterFlowCalendar(
-                      color: Color(0xFF1B63FE),
-                      iconColor: Color(0xFF57636C),
-                      weekFormat: false,
-                      weekStartsMonday: true,
-                      onChange: (DateTimeRange? newSelectedDate) {
-                        safeSetState(
-                            () => _model.calendarSelectedDay = newSelectedDate);
+                    child: StreamBuilder<BookingRecord>(
+                      stream: BookingRecord.getDocument(widget.bookingid!),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+
+                        final calendarBookingRecord = snapshot.data!;
+
+                        return FlutterFlowCalendar(
+                          color: Color(0xFF1B63FE),
+                          iconColor: Color(0xFF57636C),
+                          weekFormat: false,
+                          weekStartsMonday: true,
+                          initialDate: calendarBookingRecord.bookingDate,
+                          onChange: (DateTimeRange? newSelectedDate) {
+                            safeSetState(() =>
+                                _model.calendarSelectedDay = newSelectedDate);
+                          },
+                          titleStyle:
+                              FlutterFlowTheme.of(context).titleLarge.override(
+                                    font: GoogleFonts.outfit(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF14181B),
+                                    fontSize: 22.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontStyle,
+                                  ),
+                          dayOfWeekStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    font: GoogleFonts.plusJakartaSans(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF57636C),
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
+                          dateStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.plusJakartaSans(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF14181B),
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                          selectedDateStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    font: GoogleFonts.plusJakartaSans(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                          inactiveDateStyle:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    font: GoogleFonts.plusJakartaSans(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF57636C),
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
+                        );
                       },
-                      titleStyle:
-                          FlutterFlowTheme.of(context).titleLarge.override(
-                                font: GoogleFonts.outfit(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleLarge
-                                      .fontStyle,
-                                ),
-                                color: Color(0xFF14181B),
-                                fontSize: 22.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleLarge
-                                    .fontStyle,
-                              ),
-                      dayOfWeekStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.plusJakartaSans(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0xFF57636C),
-                                fontSize: 14.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
-                      dateStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.plusJakartaSans(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0xFF14181B),
-                                fontSize: 14.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                      selectedDateStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                font: GoogleFonts.plusJakartaSans(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
-                              ),
-                      inactiveDateStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.plusJakartaSans(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0xFF57636C),
-                                fontSize: 14.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
                     ),
                   ),
                   ListView(
@@ -247,31 +296,66 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        'Select a time',
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineSmall
-                                            .override(
-                                              font: GoogleFonts.outfit(
-                                                fontWeight: FontWeight.w500,
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  4.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            'Select a time',
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineSmall
+                                                .override(
+                                                  font: GoogleFonts.outfit(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  color: Color(0xFF14181B),
+                                                  fontSize: 24.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineSmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                        ),
+                                        Text(
+                                          dateTimeFormat(
+                                              "EEEE, dd/MM/yyyy",
+                                              _model
+                                                  .calendarSelectedDay!.start),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodySmall
+                                              .override(
+                                                font:
+                                                    GoogleFonts.plusJakartaSans(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodySmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Color(0xFF14181B),
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .headlineSmall
+                                                        .bodySmall
                                                         .fontStyle,
                                               ),
-                                              color: Color(0xFF14181B),
-                                              fontSize: 24.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
+                                        ),
+                                      ].divide(SizedBox(width: 40.0)),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -293,23 +377,64 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child:
-                                                  FlutterFlowDropDown<String>(
-                                                controller: _model
-                                                        .dropDownValueController1 ??=
-                                                    FormFieldController<String>(
-                                                        null),
-                                                options: [
-                                                  '8:30 AM - 10:30 AM',
-                                                  '12:30 PM- 1:30 PM',
-                                                  '5:30 PM - 7:30 PM'
-                                                ],
-                                                onChanged: (val) =>
-                                                    safeSetState(() => _model
-                                                        .dropDownValue1 = val),
-                                                width: 200.0,
-                                                height: 40.0,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                  StreamBuilder<BookingRecord>(
+                                                stream:
+                                                    BookingRecord.getDocument(
+                                                        widget.bookingid!),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  final dropDownBookingRecord =
+                                                      snapshot.data!;
+
+                                                  return FlutterFlowDropDown<
+                                                      String>(
+                                                    controller: _model
+                                                            .dropDownValueController1 ??=
+                                                        FormFieldController<
+                                                            String>(
+                                                      _model.dropDownValue1 ??=
+                                                          dropDownBookingRecord
+                                                              .bookingTime,
+                                                    ),
+                                                    options: [
+                                                      '9:00 AM - 10:00 AM',
+                                                      '10:00 AM - 11:00 AM',
+                                                      '11:00 AM - 12:00 PM',
+                                                      '12:00 PM - 1:00 PM',
+                                                      '1:00 PM - 2:00 PM',
+                                                      '2:00 PM - 3:00 PM',
+                                                      '3:00 PM - 4:00 PM',
+                                                      '4:00 PM - 5:00 PM',
+                                                      '5:00 PM - 6:00 PM',
+                                                      '6:00 PM - 7:00 PM'
+                                                    ],
+                                                    onChanged: (val) =>
+                                                        safeSetState(() => _model
+                                                                .dropDownValue1 =
+                                                            val),
+                                                    width: 200.0,
+                                                    height: 40.0,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
                                                         .bodyMedium
                                                         .override(
                                                           font:
@@ -337,57 +462,36 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                hintText: 'Select...',
-                                                icon: Icon(
-                                                  Icons
-                                                      .keyboard_arrow_down_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
+                                                    hintText: 'Select...',
+                                                    icon: Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 24.0,
+                                                    ),
+                                                    fillColor: FlutterFlowTheme
+                                                            .of(context)
                                                         .secondaryBackground,
-                                                elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 0.0,
-                                                borderRadius: 8.0,
-                                                margin: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        12.0, 0.0, 12.0, 0.0),
-                                                hidesUnderline: true,
-                                                isOverButton: false,
-                                                isSearchable: false,
-                                                isMultiSelect: false,
+                                                    elevation: 2.0,
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderWidth: 0.0,
+                                                    borderRadius: 8.0,
+                                                    margin:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    hidesUnderline: true,
+                                                    isOverButton: false,
+                                                    isSearchable: false,
+                                                    isMultiSelect: false,
+                                                  );
+                                                },
                                               ),
                                             ),
-                                          ),
-                                          Text(
-                                            'Wed, 03/08/2022',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodySmall
-                                                .override(
-                                                  font: GoogleFonts
-                                                      .plusJakartaSans(
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodySmall
-                                                            .fontStyle,
-                                                  ),
-                                                  color: Color(0xFF14181B),
-                                                  fontSize: 12.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodySmall
-                                                          .fontStyle,
-                                                ),
                                           ),
                                         ],
                                       ),
@@ -475,25 +579,59 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child:
-                                                  FlutterFlowDropDown<String>(
-                                                controller: _model
-                                                        .dropDownValueController2 ??=
-                                                    FormFieldController<String>(
-                                                        null),
-                                                options: [
-                                                  '2-5',
-                                                  '6-10',
-                                                  '10-25',
-                                                  '26-50',
-                                                  'More than 50'
-                                                ],
-                                                onChanged: (val) =>
-                                                    safeSetState(() => _model
-                                                        .dropDownValue2 = val),
-                                                width: 200.0,
-                                                height: 40.0,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                  StreamBuilder<BookingRecord>(
+                                                stream:
+                                                    BookingRecord.getDocument(
+                                                        widget.bookingid!),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  final dropDownBookingRecord =
+                                                      snapshot.data!;
+
+                                                  return FlutterFlowDropDown<
+                                                      String>(
+                                                    controller: _model
+                                                            .dropDownValueController2 ??=
+                                                        FormFieldController<
+                                                            String>(
+                                                      _model.dropDownValue2 ??=
+                                                          dropDownBookingRecord
+                                                              .pax,
+                                                    ),
+                                                    options: [
+                                                      '2-5',
+                                                      '6-10',
+                                                      '10-25',
+                                                      '26-50',
+                                                      'More than 50'
+                                                    ],
+                                                    onChanged: (val) =>
+                                                        safeSetState(() => _model
+                                                                .dropDownValue2 =
+                                                            val),
+                                                    width: 200.0,
+                                                    height: 40.0,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
                                                         .bodyMedium
                                                         .override(
                                                           font:
@@ -521,29 +659,34 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                hintText: 'Select...',
-                                                icon: Icon(
-                                                  Icons
-                                                      .keyboard_arrow_down_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
+                                                    hintText: 'Select...',
+                                                    icon: Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 24.0,
+                                                    ),
+                                                    fillColor: FlutterFlowTheme
+                                                            .of(context)
                                                         .secondaryBackground,
-                                                elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 0.0,
-                                                borderRadius: 8.0,
-                                                margin: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        12.0, 0.0, 12.0, 0.0),
-                                                hidesUnderline: true,
-                                                isOverButton: false,
-                                                isSearchable: false,
-                                                isMultiSelect: false,
+                                                    elevation: 2.0,
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderWidth: 0.0,
+                                                    borderRadius: 8.0,
+                                                    margin:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    hidesUnderline: true,
+                                                    isOverButton: false,
+                                                    isSearchable: false,
+                                                    isMultiSelect: false,
+                                                  );
+                                                },
                                               ),
                                             ),
                                           ),
@@ -573,102 +716,136 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
-                                child: TextFormField(
-                                  controller: _model.textController1,
-                                  focusNode: _model.textFieldFocusNode1,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Booking Username',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.plusJakartaSans(
+                                child: StreamBuilder<BookingRecord>(
+                                  stream: BookingRecord.getDocument(
+                                      widget.bookingid!),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    final textFieldBookingRecord =
+                                        snapshot.data!;
+
+                                    return TextFormField(
+                                      controller: _model.textController1 ??=
+                                          TextEditingController(
+                                        text: textFieldBookingRecord.email,
+                                      ),
+                                      focusNode: _model.textFieldFocusNode1,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Booking Username',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              color: Color(0xFF57636C),
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        hintText: 'Howard',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              color: Color(0xFF57636C),
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFE0E3E7),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFF4B39EF),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFFF5963),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFFF5963),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFFDBE2E7),
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
                                             fontStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium
+                                                    .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    hintText: 'Howard',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFE0E3E7),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFF4B39EF),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFFF5963),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFFF5963),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.plusJakartaSans(
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: Color(0xFFDBE2E7),
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                  validator: _model.textController1Validator
-                                      .asValidator(context),
+                                      validator: _model.textController1Validator
+                                          .asValidator(context),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -681,102 +858,136 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
-                                child: TextFormField(
-                                  controller: _model.textController2,
-                                  focusNode: _model.textFieldFocusNode2,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Room Booked',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.plusJakartaSans(
+                                child: StreamBuilder<BookingRecord>(
+                                  stream: BookingRecord.getDocument(
+                                      widget.bookingid!),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    final textFieldBookingRecord =
+                                        snapshot.data!;
+
+                                    return TextFormField(
+                                      controller: _model.textController2 ??=
+                                          TextEditingController(
+                                        text: textFieldBookingRecord.roomID,
+                                      ),
+                                      focusNode: _model.textFieldFocusNode2,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Room Booked',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              color: Color(0xFF57636C),
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        hintText: 'A-5-03',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              color: Color(0xFF57636C),
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFE0E3E7),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFF4B39EF),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFFF5963),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFFF5963),
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFFDBE2E7),
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
                                             fontStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium
+                                                    .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    hintText: 'A-5-03',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFE0E3E7),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFF4B39EF),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFFF5963),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFFF5963),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.plusJakartaSans(
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: Color(0xFFDBE2E7),
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                  validator: _model.textController2Validator
-                                      .asValidator(context),
+                                      validator: _model.textController2Validator
+                                          .asValidator(context),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -800,86 +1011,153 @@ class _ReceptionistEditWidgetState extends State<ReceptionistEditWidget> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         children: [
-                          FFButtonWidget(
-                            onPressed: () async {
-                              context.pushNamed(
-                                  ReceptionistConfirmWidget.routeName);
-                            },
-                            text: 'Save Changes',
-                            options: FFButtonOptions(
-                              width: 270.0,
-                              height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: Color(0xFF1B63FE),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    font: GoogleFonts.plusJakartaSans(
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                          StreamBuilder<BookingRecord>(
+                            stream:
+                                BookingRecord.getDocument(widget.bookingid!),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
                                   ),
-                              elevation: 3.0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 15.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                context.pushNamed(
-                                    ReceptionistManageWidget.routeName);
-                              },
-                              text: 'Delete Booking',
-                              options: FFButtonOptions(
-                                width: 270.0,
-                                height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFFFE1B1B),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.plusJakartaSans(
+                                );
+                              }
+
+                              final buttonBookingRecord = snapshot.data!;
+
+                              return FFButtonWidget(
+                                onPressed: () async {
+                                  await widget.bookingid!
+                                      .update(createBookingRecordData(
+                                    bookingTime: _model.dropDownValue1,
+                                    pax: _model.dropDownValue2,
+                                    bookingDate:
+                                        _model.calendarSelectedDay?.start,
+                                  ));
+
+                                  context.pushNamed(
+                                    ReceptionistConfirmWidget.routeName,
+                                    queryParameters: {
+                                      'bookingid': serializeParam(
+                                        buttonBookingRecord.reference,
+                                        ParamType.DocumentReference,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                                text: 'Save Changes',
+                                options: FFButtonOptions(
+                                  width: 270.0,
+                                  height: 50.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: Color(0xFF1B63FE),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        font: GoogleFonts.plusJakartaSans(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontStyle,
                                       ),
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                                  elevation: 3.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
+                              );
+                            },
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 15.0, 0.0, 0.0),
+                            child: StreamBuilder<BookingRecord>(
+                              stream:
+                                  BookingRecord.getDocument(widget.bookingid!),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                final buttonBookingRecord = snapshot.data!;
+
+                                return FFButtonWidget(
+                                  onPressed: () async {
+                                    await widget.bookingid!.delete();
+
+                                    context.pushNamed(
+                                        ReceptionistManageWidget.routeName);
+                                  },
+                                  text: 'Delete Booking',
+                                  options: FFButtonOptions(
+                                    width: 270.0,
+                                    height: 50.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0xFFFE1B1B),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.plusJakartaSans(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],

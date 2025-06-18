@@ -96,7 +96,7 @@ class _UserNavigationWidgetState extends State<UserNavigationWidget> {
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(NotificationWidget.routeName);
+                        context.pushNamed(AnnouncementWidget.routeName);
                       },
                     ),
                   ),

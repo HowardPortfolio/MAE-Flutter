@@ -81,7 +81,8 @@ class _ReceptionistNavigationWidgetState
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(ReservationWidget.routeName);
+                        context
+                            .pushNamed(ReceptionistReservationWidget.routeName);
                       },
                     ),
                   ),
@@ -91,14 +92,14 @@ class _ReceptionistNavigationWidgetState
                       borderRadius: 8.0,
                       buttonSize: 35.0,
                       icon: Icon(
-                        Icons.edit_square,
+                        Icons.edit,
                         color: widget.page == 'RManage'
                             ? Color(0xFF1B63FE)
                             : Colors.black,
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(NotificationWidget.routeName);
+                        context.pushNamed(ReceptionistManageWidget.routeName);
                       },
                     ),
                   ),
@@ -115,7 +116,7 @@ class _ReceptionistNavigationWidgetState
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(HomeWidget.routeName);
+                        context.pushNamed(ReceptionistHomeWidget.routeName);
                       },
                     ),
                   ),
@@ -125,14 +126,15 @@ class _ReceptionistNavigationWidgetState
                       borderRadius: 8.0,
                       buttonSize: 35.0,
                       icon: Icon(
-                        Icons.settings,
-                        color: widget.page == 'RSettings'
+                        Icons.notifications_sharp,
+                        color: widget.page == 'RAnnouncement'
                             ? Color(0xFF1B63FE)
                             : Colors.black,
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(SettingsWidget.routeName);
+                        context.pushNamed(
+                            ReceptionistAnnouncementWidget.routeName);
                       },
                     ),
                   ),

@@ -381,8 +381,23 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         return;
                                       }
 
-                                      context.goNamedAuth(HomeWidget.routeName,
-                                          context.mounted);
+                                      if (currentUserEmail ==
+                                          'admin@aproom.com') {
+                                        context.pushNamedAuth(
+                                            AdminHomeWidget.routeName,
+                                            context.mounted);
+                                      } else {
+                                        if (currentUserEmail ==
+                                            'rec@aproom.com') {
+                                          context.pushNamedAuth(
+                                              ReceptionistHomeWidget.routeName,
+                                              context.mounted);
+                                        } else {
+                                          context.pushNamedAuth(
+                                              HomeWidget.routeName,
+                                              context.mounted);
+                                        }
+                                      }
                                     },
                                     text: 'Sign In',
                                     options: FFButtonOptions(

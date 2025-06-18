@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/receptionist/receptionist_navigation/receptionist_navigation_widget.dart';
+import '/index.dart';
 import 'receptionist_home_widget.dart' show ReceptionistHomeWidget;
 import 'package:flutter/material.dart';
 

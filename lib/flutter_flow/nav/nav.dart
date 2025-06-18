@@ -100,28 +100,33 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => OnBoardingWidget(),
         ),
         FFRoute(
-          name: ReservationWidget.routeName,
-          path: ReservationWidget.routePath,
-          builder: (context, params) => ReservationWidget(),
-        ),
-        FFRoute(
-          name: NotificationWidget.routeName,
-          path: NotificationWidget.routePath,
-          builder: (context, params) => NotificationWidget(),
+          name: AnnouncementWidget.routeName,
+          path: AnnouncementWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => AnnouncementWidget(),
         ),
         FFRoute(
           name: HomeWidget.routeName,
           path: HomeWidget.routePath,
+          requireAuth: true,
           builder: (context, params) => HomeWidget(),
         ),
         FFRoute(
           name: ConfirmWidget.routeName,
           path: ConfirmWidget.routePath,
-          builder: (context, params) => ConfirmWidget(),
+          builder: (context, params) => ConfirmWidget(
+            bookingid: params.getParam(
+              'bookingid',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Booking'],
+            ),
+          ),
         ),
         FFRoute(
           name: ReceptionistHomeWidget.routeName,
           path: ReceptionistHomeWidget.routePath,
+          requireAuth: true,
           builder: (context, params) => ReceptionistHomeWidget(),
         ),
         FFRoute(
@@ -135,11 +140,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ReceptionistSettingsWidget(),
         ),
         FFRoute(
-          name: ReceptionistReservationWidget.routeName,
-          path: ReceptionistReservationWidget.routePath,
-          builder: (context, params) => ReceptionistReservationWidget(),
-        ),
-        FFRoute(
           name: ReceptionistManageWidget.routeName,
           path: ReceptionistManageWidget.routePath,
           builder: (context, params) => ReceptionistManageWidget(),
@@ -147,17 +147,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: ReceptionistEditWidget.routeName,
           path: ReceptionistEditWidget.routePath,
-          builder: (context, params) => ReceptionistEditWidget(),
+          builder: (context, params) => ReceptionistEditWidget(
+            bookingid: params.getParam(
+              'bookingid',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Booking'],
+            ),
+          ),
         ),
         FFRoute(
           name: ReceptionistConfirmWidget.routeName,
           path: ReceptionistConfirmWidget.routePath,
-          builder: (context, params) => ReceptionistConfirmWidget(),
+          builder: (context, params) => ReceptionistConfirmWidget(
+            bookingid: params.getParam(
+              'bookingid',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Booking'],
+            ),
+          ),
         ),
         FFRoute(
           name: AdminEditBookingWidget.routeName,
           path: AdminEditBookingWidget.routePath,
-          builder: (context, params) => AdminEditBookingWidget(),
+          builder: (context, params) => AdminEditBookingWidget(
+            bookingid: params.getParam(
+              'bookingid',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Booking'],
+            ),
+          ),
         ),
         FFRoute(
           name: AdminEditUserWidget.routeName,
@@ -170,14 +191,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AdminManageBookingWidget(),
         ),
         FFRoute(
-          name: AdminReservationWidget.routeName,
-          path: AdminReservationWidget.routePath,
-          builder: (context, params) => AdminReservationWidget(),
-        ),
-        FFRoute(
-          name: AdminManageUserWidget.routeName,
-          path: AdminManageUserWidget.routePath,
-          builder: (context, params) => AdminManageUserWidget(),
+          name: AdminManageRoomWidget.routeName,
+          path: AdminManageRoomWidget.routePath,
+          builder: (context, params) => AdminManageRoomWidget(),
         ),
         FFRoute(
           name: AdminSettingsWidget.routeName,
@@ -190,9 +206,68 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AdminHomeWidget(),
         ),
         FFRoute(
-          name: AdminBookingHistoryWidget.routeName,
-          path: AdminBookingHistoryWidget.routePath,
-          builder: (context, params) => AdminBookingHistoryWidget(),
+          name: AdminAnnouncementWidget.routeName,
+          path: AdminAnnouncementWidget.routePath,
+          builder: (context, params) => AdminAnnouncementWidget(),
+        ),
+        FFRoute(
+          name: ReservationWidget.routeName,
+          path: ReservationWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => ReservationWidget(
+            bookingtime: params.getParam<String>(
+              'bookingtime',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: ReceptionistReservationWidget.routeName,
+          path: ReceptionistReservationWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => ReceptionistReservationWidget(
+            bookingtime: params.getParam<String>(
+              'bookingtime',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: AdminReservationWidget.routeName,
+          path: AdminReservationWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => AdminReservationWidget(
+            bookingtime: params.getParam<String>(
+              'bookingtime',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: AdminMakeAnnouncementWidget.routeName,
+          path: AdminMakeAnnouncementWidget.routePath,
+          builder: (context, params) => AdminMakeAnnouncementWidget(),
+        ),
+        FFRoute(
+          name: ViewAnnouncementWidget.routeName,
+          path: ViewAnnouncementWidget.routePath,
+          builder: (context, params) => ViewAnnouncementWidget(
+            notificationid: params.getParam(
+              'notificationid',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Notification'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: ReceptionistAnnouncementWidget.routeName,
+          path: ReceptionistAnnouncementWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => ReceptionistAnnouncementWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -311,6 +386,7 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
+    List<String>? collectionNamePath,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -328,6 +404,7 @@ class FFParameters {
       param,
       type,
       isList,
+      collectionNamePath: collectionNamePath,
     );
   }
 }
