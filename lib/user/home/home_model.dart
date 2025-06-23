@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/user/user_navigation/user_navigation_widget.dart';
+import '/index.dart';
 import 'home_widget.dart' show HomeWidget;
 import 'package:flutter/material.dart';
 

@@ -1,41 +1,39 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/user/user_navigation/user_navigation_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'admin_edit_user_model.dart';
-export 'admin_edit_user_model.dart';
+import 'settingsold_model.dart';
+export 'settingsold_model.dart';
 
-class AdminEditUserWidget extends StatefulWidget {
-  const AdminEditUserWidget({super.key});
+class SettingsoldWidget extends StatefulWidget {
+  const SettingsoldWidget({super.key});
 
-  static String routeName = 'AdminEditUser';
-  static String routePath = '/adminEditUser';
+  static String routeName = 'Settingsold';
+  static String routePath = '/settingsold';
 
   @override
-  State<AdminEditUserWidget> createState() => _AdminEditUserWidgetState();
+  State<SettingsoldWidget> createState() => _SettingsoldWidgetState();
 }
 
-class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
-  late AdminEditUserModel _model;
+class _SettingsoldWidgetState extends State<SettingsoldWidget> {
+  late SettingsoldModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AdminEditUserModel());
+    _model = createModel(context, () => SettingsoldModel());
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
   }
 
   @override
@@ -60,18 +58,17 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 10.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          'Editing User: Howard',
+                          'Settings',
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .override(
                                 font: GoogleFonts.outfit(
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.normal,
                                   fontStyle: FlutterFlowTheme.of(context)
                                       .headlineMedium
                                       .fontStyle,
@@ -79,27 +76,11 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                 color: Color(0xFF14181B),
                                 fontSize: 24.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.normal,
                                 fontStyle: FlutterFlowTheme.of(context)
                                     .headlineMedium
                                     .fontStyle,
                               ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(-1.0, 0.0),
-                          child: FlutterFlowIconButton(
-                            borderRadius: 8.0,
-                            buttonSize: 40.0,
-                            icon: Icon(
-                              Icons.arrow_back_ios_new,
-                              color: Colors.black,
-                              size: 24.0,
-                            ),
-                            onPressed: () async {
-                              context
-                                  .pushNamed(AdminManageRoomWidget.routeName);
-                            },
-                          ),
                         ),
                       ],
                     ),
@@ -121,114 +102,6 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                 child: TextFormField(
                                   controller: _model.textController1,
                                   focusNode: _model.textFieldFocusNode1,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'New Email',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    hintText: 'Leave blank if unchanged',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.plusJakartaSans(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFE0E3E7),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFF4B39EF),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFFF5963),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFFF5963),
-                                        width: 2.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.plusJakartaSans(
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: Color(0xFFDBE2E7),
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                  validator: _model.textController1Validator
-                                      .asValidator(context),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 0.0),
-                                child: TextFormField(
-                                  controller: _model.textController2,
-                                  focusNode: _model.textFieldFocusNode2,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'New Password',
@@ -312,7 +185,7 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        color: Color(0xFFDBE2E7),
+                                        color: Colors.black,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -320,7 +193,7 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                  validator: _model.textController2Validator
+                                  validator: _model.textController1Validator
                                       .asValidator(context),
                                 ),
                               ),
@@ -335,11 +208,11 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.textController3,
-                                  focusNode: _model.textFieldFocusNode3,
+                                  controller: _model.textController2,
+                                  focusNode: _model.textFieldFocusNode2,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'Confirm New Password',
+                                    labelText: 'Confirm Password',
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -359,7 +232,7 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                                   .labelMedium
                                                   .fontStyle,
                                         ),
-                                    hintText: 'Password',
+                                    hintText: 'Confirm Password',
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -420,7 +293,7 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        color: Color(0xFFDBE2E7),
+                                        color: Colors.black,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -428,7 +301,7 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                  validator: _model.textController3Validator
+                                  validator: _model.textController2Validator
                                       .asValidator(context),
                                 ),
                               ),
@@ -440,7 +313,78 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed(AdminManageRoomWidget.routeName);
+                      if ((_model.textController1.text != '') &&
+                          (_model.textController1.text ==
+                              _model.textController2.text)) {
+                        await authManager.updatePassword(
+                          newPassword: _model.textController1.text,
+                          context: context,
+                        );
+                        safeSetState(() {});
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Update Successful !',
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Save unsuccessful !',
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor: FlutterFlowTheme.of(context).error,
+                          ),
+                        );
+                      }
                     },
                     text: 'Save Changes',
                     options: FFButtonOptions(
@@ -480,9 +424,14 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed(AdminManageRoomWidget.routeName);
+                        GoRouter.of(context).prepareAuthEvent();
+                        await authManager.signOut();
+                        GoRouter.of(context).clearRedirectLocation();
+
+                        context.goNamedAuth(
+                            OnBoardingWidget.routeName, context.mounted);
                       },
-                      text: 'Remove Account',
+                      text: 'Logout',
                       options: FFButtonOptions(
                         width: 270.0,
                         height: 50.0,
@@ -490,7 +439,7 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFFFF0000),
+                        color: Color(0xFF1B63FE),
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   font: GoogleFonts.plusJakartaSans(
@@ -517,6 +466,13 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            wrapWithModel(
+              model: _model.userNavigationModel,
+              updateCallback: () => safeSetState(() {}),
+              child: UserNavigationWidget(
+                page: 'Settings',
               ),
             ),
           ],

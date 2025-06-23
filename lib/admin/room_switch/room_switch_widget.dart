@@ -78,9 +78,9 @@ class _RoomSwitchWidgetState extends State<RoomSwitchWidget> {
             }
           },
           activeColor: Colors.white,
-          activeTrackColor: FlutterFlowTheme.of(context).primary,
-          inactiveTrackColor: Colors.white,
-          inactiveThumbColor: FlutterFlowTheme.of(context).primary,
+          activeTrackColor: Color(0xFF1B63FE),
+          inactiveTrackColor: Color(0xFF313131),
+          inactiveThumbColor: Color(0xFF7B7A83),
         );
       },
     );

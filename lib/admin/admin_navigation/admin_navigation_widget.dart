@@ -123,14 +123,14 @@ class _AdminNavigationWidgetState extends State<AdminNavigationWidget> {
                       borderRadius: 8.0,
                       buttonSize: 35.0,
                       icon: Icon(
-                        Icons.settings,
-                        color: widget.page == 'ASettings'
+                        Icons.edit,
+                        color: widget.page == 'AManageUser'
                             ? Color(0xFF1B63FE)
                             : Colors.black,
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(AdminSettingsWidget.routeName);
+                        context.pushNamed(AdminManageUserWidget.routeName);
                       },
                     ),
                   ),

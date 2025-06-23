@@ -1,9 +1,7 @@
 import '/admin/room_switch/room_switch_widget.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_manage_room_model.dart';
@@ -47,54 +45,6 @@ class _AdminManageRoomWidgetState extends State<AdminManageRoomWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          title: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Manage Room',
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      font: GoogleFonts.outfit(
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontStyle,
-                      ),
-                      color: Color(0xFF15161E),
-                      fontSize: 24.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                    ),
-              ),
-            ].divide(SizedBox(height: 4.0)),
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 12.0, 8.0),
-              child: FlutterFlowIconButton(
-                borderRadius: 12.0,
-                borderWidth: 0.0,
-                buttonSize: 40.0,
-                fillColor: Colors.white,
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Color(0xFF15161E),
-                  size: 24.0,
-                ),
-                onPressed: () async {
-                  context.pushNamed(AdminHomeWidget.routeName);
-                },
-              ),
-            ),
-          ],
-          centerTitle: false,
-          elevation: 0.0,
-        ),
         body: SafeArea(
           top: true,
           child: Column(

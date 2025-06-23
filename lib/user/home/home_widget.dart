@@ -1,8 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/user/user_navigation/user_navigation_widget.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'home_model.dart';
@@ -64,9 +66,68 @@ class _HomeWidgetState extends State<HomeWidget> {
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
+            StreamBuilder<UserRecord>(
+              stream: UserRecord.getDocument(currentUserReference!),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+                final textUserRecord = snapshot.data!;
+
+                return Text(
+                  'Welcome, ${textUserRecord.displayName}',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        font: GoogleFonts.inter(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                        letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                );
+              },
+            ),
           ].divide(SizedBox(height: 4.0)),
         ),
-        actions: [],
+        actions: [
+          Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+              child: FlutterFlowIconButton(
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                fillColor: Colors.white,
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.black,
+                  size: 24.0,
+                ),
+                onPressed: () async {
+                  context.pushNamed(SettingsWidget.routeName);
+                },
+              ),
+            ),
+          ),
+        ],
         centerTitle: false,
         elevation: 0.0,
       ),

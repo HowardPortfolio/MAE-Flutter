@@ -1,5 +1,4 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/user/user_navigation/user_navigation_widget.dart';
 import '/index.dart';
 import 'settings_widget.dart' show SettingsWidget;
 import 'package:flutter/material.dart';
@@ -15,13 +14,13 @@ class SettingsModel extends FlutterFlowModel<SettingsWidget> {
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  // Model for UserNavigation component.
-  late UserNavigationModel userNavigationModel;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode3;
+  TextEditingController? textController3;
+  String? Function(BuildContext, String?)? textController3Validator;
 
   @override
-  void initState(BuildContext context) {
-    userNavigationModel = createModel(context, () => UserNavigationModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
@@ -31,6 +30,7 @@ class SettingsModel extends FlutterFlowModel<SettingsWidget> {
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
 
-    userNavigationModel.dispose();
+    textFieldFocusNode3?.dispose();
+    textController3?.dispose();
   }
 }

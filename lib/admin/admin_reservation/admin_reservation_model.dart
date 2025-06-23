@@ -2,6 +2,7 @@ import '/admin/admin_navigation/admin_navigation_widget.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'admin_reservation_widget.dart' show AdminReservationWidget;
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,9 @@ class AdminReservationModel extends FlutterFlowModel<AdminReservationWidget> {
   // State field(s) for RoomDropDown widget.
   String? roomDropDownValue;
   FormFieldController<String>? roomDropDownValueController;
+  // State field(s) for UserDropDown widget.
+  String? userDropDownValue;
+  FormFieldController<String>? userDropDownValueController;
   // Model for AdminNavigation component.
   late AdminNavigationModel adminNavigationModel;
 

@@ -85,7 +85,7 @@ class _AdminMakeAnnouncementWidgetState
           ),
           actions: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 12.0, 8.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
               child: FlutterFlowIconButton(
                 borderRadius: 12.0,
                 borderWidth: 0.0,
@@ -97,7 +97,7 @@ class _AdminMakeAnnouncementWidgetState
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed(AdminAnnouncementWidget.routeName);
+                  context.safePop();
                 },
               ),
             ),

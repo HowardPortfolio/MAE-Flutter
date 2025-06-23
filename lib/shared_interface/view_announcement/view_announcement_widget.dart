@@ -76,7 +76,7 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Scaffold(
-            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+            backgroundColor: Colors.white,
             body: Center(
               child: SizedBox(
                 width: 50.0,
@@ -100,13 +100,13 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
           },
           child: Scaffold(
             key: scaffoldKey,
-            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+            backgroundColor: Colors.white,
             appBar: AppBar(
               backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
               title: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Viewing Announcement',
@@ -161,26 +161,26 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
                                 24.0, 0.0, 0.0, 0.0),
                             child: Text(
                               dateTimeFormat(
-                                  "yMMMd",
+                                  "EEEE, dd/MM/yyyy",
                                   viewAnnouncementNotificationRecord
                                       .timestamp!),
                               style: FlutterFlowTheme.of(context)
-                                  .displaySmall
+                                  .headlineSmall
                                   .override(
                                     font: GoogleFonts.interTight(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .displaySmall
+                                          .headlineSmall
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .displaySmall
+                                          .headlineSmall
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .displaySmall
+                                        .headlineSmall
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .displaySmall
+                                        .headlineSmall
                                         .fontStyle,
                                   ),
                             ),
@@ -205,6 +205,7 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
                                           .labelMedium
                                           .fontStyle,
                                     ),
+                                    color: Colors.black,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -237,6 +238,7 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
                                           .headlineMedium
                                           .fontStyle,
                                     ),
+                                    color: Colors.black,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .headlineMedium
@@ -264,6 +266,8 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
                                           .labelMedium
                                           .fontStyle,
                                     ),
+                                    color: Colors.black,
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium

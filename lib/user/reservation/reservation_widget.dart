@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -82,7 +83,27 @@ class _ReservationWidgetState extends State<ReservationWidget> {
               ),
             ].divide(SizedBox(height: 4.0)),
           ),
-          actions: [],
+          actions: [
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 40.0,
+                  fillColor: Colors.white,
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    context.pushNamed(SettingsWidget.routeName);
+                  },
+                ),
+              ),
+            ),
+          ],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -113,6 +134,19 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                     iconColor: Color(0xFF57636C),
                     weekFormat: false,
                     weekStartsMonday: true,
+                    rowHeight: () {
+                      if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                        return 50.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointMedium) {
+                        return 75.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointLarge) {
+                        return 100.0;
+                      } else {
+                        return 125.0;
+                      }
+                    }(),
                     onChange: (DateTimeRange? newSelectedDate) {
                       safeSetState(
                           () => _model.calendarSelectedDay = newSelectedDate);
@@ -157,7 +191,20 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                 .fontStyle,
                           ),
                           color: Color(0xFF14181B),
-                          fontSize: 14.0,
+                          fontSize: () {
+                            if (MediaQuery.sizeOf(context).width <
+                                kBreakpointSmall) {
+                              return 14.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointMedium) {
+                              return 20.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointLarge) {
+                              return 24.0;
+                            } else {
+                              return 28.0;
+                            }
+                          }(),
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.normal,
                           fontStyle:
@@ -173,7 +220,20 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                 .fontStyle,
                           ),
                           color: Colors.white,
-                          fontSize: 16.0,
+                          fontSize: () {
+                            if (MediaQuery.sizeOf(context).width <
+                                kBreakpointSmall) {
+                              return 16.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointMedium) {
+                              return 20.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointLarge) {
+                              return 24.0;
+                            } else {
+                              return 28.0;
+                            }
+                          }(),
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                           fontStyle:
@@ -188,7 +248,20 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                     .fontStyle,
                               ),
                               color: Color(0xFF57636C),
-                              fontSize: 14.0,
+                              fontSize: () {
+                                if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointSmall) {
+                                  return 14.0;
+                                } else if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointMedium) {
+                                  return 18.0;
+                                } else if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointLarge) {
+                                  return 22.0;
+                                } else {
+                                  return 26.0;
+                                }
+                              }(),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
                               fontStyle: FlutterFlowTheme.of(context)
@@ -376,12 +449,10 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                                       .secondaryText,
                                                   size: 24.0,
                                                 ),
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                fillColor: Colors.white,
                                                 elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 0.0,
+                                                borderColor: Color(0x25000000),
+                                                borderWidth: 1.0,
                                                 borderRadius: 8.0,
                                                 margin: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -535,12 +606,10 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                                       .secondaryText,
                                                   size: 24.0,
                                                 ),
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                fillColor: Colors.white,
                                                 elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 0.0,
+                                                borderColor: Color(0x25000000),
+                                                borderWidth: 1.0,
                                                 borderRadius: 8.0,
                                                 margin: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -730,13 +799,11 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                                               .secondaryText,
                                                       size: 24.0,
                                                     ),
-                                                    fillColor: FlutterFlowTheme
-                                                            .of(context)
-                                                        .secondaryBackground,
+                                                    fillColor: Colors.white,
                                                     elevation: 2.0,
                                                     borderColor:
-                                                        Colors.transparent,
-                                                    borderWidth: 0.0,
+                                                        Color(0x25000000),
+                                                    borderWidth: 1.0,
                                                     borderRadius: 8.0,
                                                     margin:
                                                         EdgeInsetsDirectional

@@ -89,23 +89,6 @@ class _UserNavigationWidgetState extends State<UserNavigationWidget> {
                       borderRadius: 8.0,
                       buttonSize: 35.0,
                       icon: Icon(
-                        Icons.notifications_sharp,
-                        color: widget.page == 'Notification'
-                            ? Color(0xFF1B63FE)
-                            : Colors.black,
-                        size: 20.0,
-                      ),
-                      onPressed: () async {
-                        context.pushNamed(AnnouncementWidget.routeName);
-                      },
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
-                    child: FlutterFlowIconButton(
-                      borderRadius: 8.0,
-                      buttonSize: 35.0,
-                      icon: Icon(
                         Icons.home,
                         color: widget.page == 'Home'
                             ? Color(0xFF1B63FE)
@@ -123,14 +106,14 @@ class _UserNavigationWidgetState extends State<UserNavigationWidget> {
                       borderRadius: 8.0,
                       buttonSize: 35.0,
                       icon: Icon(
-                        Icons.settings,
-                        color: widget.page == 'Settings'
+                        Icons.notifications_sharp,
+                        color: widget.page == 'Notification'
                             ? Color(0xFF1B63FE)
                             : Colors.black,
                         size: 20.0,
                       ),
                       onPressed: () async {
-                        context.pushNamed(SettingsWidget.routeName);
+                        context.pushNamed(AnnouncementWidget.routeName);
                       },
                     ),
                   ),

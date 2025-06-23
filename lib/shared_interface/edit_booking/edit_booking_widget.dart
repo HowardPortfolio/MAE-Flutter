@@ -6,40 +6,37 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'admin_edit_booking_model.dart';
-export 'admin_edit_booking_model.dart';
+import 'edit_booking_model.dart';
+export 'edit_booking_model.dart';
 
-class AdminEditBookingWidget extends StatefulWidget {
-  const AdminEditBookingWidget({
+class EditBookingWidget extends StatefulWidget {
+  const EditBookingWidget({
     super.key,
     required this.bookingid,
   });
 
   final DocumentReference? bookingid;
 
-  static String routeName = 'AdminEditBooking';
-  static String routePath = '/adminEditBooking';
+  static String routeName = 'EditBooking';
+  static String routePath = '/editBooking';
 
   @override
-  State<AdminEditBookingWidget> createState() => _AdminEditBookingWidgetState();
+  State<EditBookingWidget> createState() => _EditBookingWidgetState();
 }
 
-class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
-  late AdminEditBookingModel _model;
+class _EditBookingWidgetState extends State<EditBookingWidget> {
+  late EditBookingModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AdminEditBookingModel());
+    _model = createModel(context, () => EditBookingModel());
 
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -64,7 +61,7 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
             )
             .where(
               'RoomID',
-              isEqualTo: _model.textController2.text,
+              isEqualTo: _model.dropDownValue3,
             ),
       ),
       builder: (context, snapshot) {
@@ -85,11 +82,84 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
             ),
           );
         }
-        List<BookingRecord> adminEditBookingBookingRecordList = snapshot.data!;
+        List<BookingRecord> editBookingBookingRecordList = snapshot.data!;
 
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            title: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StreamBuilder<BookingRecord>(
+                  stream: BookingRecord.getDocument(widget.bookingid!),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
+                    final textBookingRecord = snapshot.data!;
+
+                    return Text(
+                      'Editing Booking: ${textBookingRecord.roomID}',
+                      style:
+                          FlutterFlowTheme.of(context).headlineMedium.override(
+                                font: GoogleFonts.outfit(
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontStyle,
+                                ),
+                                color: Color(0xFF14181B),
+                                fontSize: 24.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontStyle,
+                              ),
+                    );
+                  },
+                ),
+              ].divide(SizedBox(height: 4.0)),
+            ),
+            actions: [
+              Align(
+                alignment: AlignmentDirectional(-1.0, 0.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                  child: FlutterFlowIconButton(
+                    borderRadius: 8.0,
+                    buttonSize: 40.0,
+                    icon: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.black,
+                      size: 24.0,
+                    ),
+                    onPressed: () async {
+                      context.safePop();
+                    },
+                  ),
+                ),
+              ),
+            ],
+            centerTitle: false,
+            elevation: 0.0,
+          ),
           body: SafeArea(
             top: true,
             child: Stack(
@@ -119,53 +189,6 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 24.0, 16.0, 10.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  'Editing Booking: ${columnBookingRecord.roomID}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineMedium
-                                      .override(
-                                        font: GoogleFonts.outfit(
-                                          fontWeight: FontWeight.w500,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .headlineMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: Color(0xFF14181B),
-                                        fontSize: 24.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(-1.0, 0.0),
-                                  child: FlutterFlowIconButton(
-                                    borderRadius: 8.0,
-                                    buttonSize: 40.0,
-                                    icon: Icon(
-                                      Icons.arrow_back_ios_new,
-                                      color: Colors.black,
-                                      size: 24.0,
-                                    ),
-                                    onPressed: () async {
-                                      context.pushNamed(
-                                          AdminManageBookingWidget.routeName);
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -677,6 +700,214 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                                   ),
                                 ),
                               ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 10.0, 16.0, 12.0),
+                                child: Container(
+                                  width: 100.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 3.0,
+                                        color: Color(0x33000000),
+                                        offset: Offset(
+                                          0.0,
+                                          1.0,
+                                        ),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                'Select room',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .headlineSmall
+                                                    .override(
+                                                      font: GoogleFonts.outfit(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall
+                                                                .fontStyle,
+                                                      ),
+                                                      color: Color(0xFF14181B),
+                                                      fontSize: 24.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineSmall
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Card(
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
+                                                      color: Color(0x4DEE8B60),
+                                                      elevation: 0.0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      child: StreamBuilder<
+                                                          List<RoomRecord>>(
+                                                        stream:
+                                                            queryRoomRecord(),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<RoomRecord>
+                                                              dropDownRoomRecordList =
+                                                              snapshot.data!;
+
+                                                          return FlutterFlowDropDown<
+                                                              String>(
+                                                            controller: _model
+                                                                    .dropDownValueController3 ??=
+                                                                FormFieldController<
+                                                                    String>(
+                                                              _model.dropDownValue3 ??=
+                                                                  columnBookingRecord
+                                                                      .pax,
+                                                            ),
+                                                            options:
+                                                                dropDownRoomRecordList
+                                                                    .map((e) =>
+                                                                        e.roomID)
+                                                                    .toList(),
+                                                            onChanged: (val) =>
+                                                                safeSetState(() =>
+                                                                    _model.dropDownValue3 =
+                                                                        val),
+                                                            width: 200.0,
+                                                            height: 40.0,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .inter(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                            hintText:
+                                                                'Select...',
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .keyboard_arrow_down_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryText,
+                                                              size: 24.0,
+                                                            ),
+                                                            fillColor: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryBackground,
+                                                            elevation: 2.0,
+                                                            borderColor: Colors
+                                                                .transparent,
+                                                            borderWidth: 0.0,
+                                                            borderRadius: 8.0,
+                                                            margin:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12.0,
+                                                                        0.0,
+                                                                        12.0,
+                                                                        0.0),
+                                                            hidesUnderline:
+                                                                true,
+                                                            isOverButton: false,
+                                                            isSearchable: false,
+                                                            isMultiSelect:
+                                                                false,
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                           Padding(
@@ -694,11 +925,11 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 0.0),
                                         child: TextFormField(
-                                          controller: _model.textController1 ??=
+                                          controller: _model.textController ??=
                                               TextEditingController(
                                             text: columnBookingRecord.email,
                                           ),
-                                          focusNode: _model.textFieldFocusNode1,
+                                          focusNode: _model.textFieldFocusNode,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Booking Username',
@@ -801,7 +1032,7 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                                color: Color(0xFFDBE2E7),
+                                                color: Colors.black,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
@@ -811,139 +1042,7 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                                                         .fontStyle,
                                               ),
                                           validator: _model
-                                              .textController1Validator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 16.0, 0.0, 0.0),
-                                        child: TextFormField(
-                                          controller: _model.textController2 ??=
-                                              TextEditingController(
-                                            text: columnBookingRecord.roomID,
-                                          ),
-                                          focusNode: _model.textFieldFocusNode2,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Room Booked',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .override(
-                                                      font: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color: Color(0xFF57636C),
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                            hintText: 'A-5-03',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .override(
-                                                      font: GoogleFonts
-                                                          .plusJakartaSans(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color: Color(0xFF57636C),
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFE0E3E7),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFF4B39EF),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFFF5963),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFFF5963),
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                font:
-                                                    GoogleFonts.plusJakartaSans(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                                color: Color(0xFFDBE2E7),
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                          validator: _model
-                                              .textController2Validator
+                                              .textControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
@@ -970,8 +1069,7 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      if (adminEditBookingBookingRecordList
-                                              .length ==
+                                      if (editBookingBookingRecordList.length ==
                                           0) {
                                         await widget.bookingid!
                                             .update(createBookingRecordData(
@@ -980,9 +1078,7 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                                           bookingDate:
                                               _model.calendarSelectedDay?.start,
                                         ));
-
-                                        context.pushNamed(
-                                            AdminManageBookingWidget.routeName);
+                                        context.safePop();
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -1105,9 +1201,7 @@ class _AdminEditBookingWidgetState extends State<AdminEditBookingWidget> {
                                                 ) ??
                                                 false;
                                         await widget.bookingid!.delete();
-
-                                        context.pushNamed(
-                                            AdminManageBookingWidget.routeName);
+                                        context.safePop();
                                       },
                                       text: 'Delete Booking',
                                       options: FFButtonOptions(

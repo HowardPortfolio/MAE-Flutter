@@ -1,5 +1,6 @@
 import '/admin/admin_navigation/admin_navigation_widget.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -67,7 +68,27 @@ class _AdminAnnouncementWidgetState extends State<AdminAnnouncementWidget> {
                       FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
-          actions: [],
+          actions: [
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 40.0,
+                  fillColor: Colors.white,
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    context.pushNamed(SettingsWidget.routeName);
+                  },
+                ),
+              ),
+            ),
+          ],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -263,15 +284,12 @@ class _AdminAnnouncementWidgetState extends State<AdminAnnouncementWidget> {
                     width: 394.52,
                     height: 100.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: Color(0xFFF1F4F8),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0.0),
                         bottomRight: Radius.circular(0.0),
                         topLeft: Radius.circular(10.0),
                         topRight: Radius.circular(10.0),
-                      ),
-                      border: Border.all(
-                        color: Colors.black,
                       ),
                     ),
                     child: Padding(

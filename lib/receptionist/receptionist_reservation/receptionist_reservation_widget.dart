@@ -2,23 +2,20 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/receptionist/receptionist_navigation/receptionist_navigation_widget.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'receptionist_reservation_model.dart';
 export 'receptionist_reservation_model.dart';
 
 class ReceptionistReservationWidget extends StatefulWidget {
-  const ReceptionistReservationWidget({
-    super.key,
-    this.bookingtime,
-  });
-
-  final List<String>? bookingtime;
+  const ReceptionistReservationWidget({super.key});
 
   static String routeName = 'ReceptionistReservation';
   static String routePath = '/receptionistReservation';
@@ -83,7 +80,27 @@ class _ReceptionistReservationWidgetState
               ),
             ].divide(SizedBox(height: 4.0)),
           ),
-          actions: [],
+          actions: [
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 40.0,
+                  fillColor: Colors.white,
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    context.pushNamed(SettingsWidget.routeName);
+                  },
+                ),
+              ),
+            ),
+          ],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -114,6 +131,19 @@ class _ReceptionistReservationWidgetState
                     iconColor: Color(0xFF57636C),
                     weekFormat: false,
                     weekStartsMonday: true,
+                    rowHeight: () {
+                      if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                        return 50.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointMedium) {
+                        return 75.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointLarge) {
+                        return 100.0;
+                      } else {
+                        return 125.0;
+                      }
+                    }(),
                     onChange: (DateTimeRange? newSelectedDate) {
                       safeSetState(
                           () => _model.calendarSelectedDay = newSelectedDate);
@@ -121,16 +151,19 @@ class _ReceptionistReservationWidgetState
                     titleStyle: FlutterFlowTheme.of(context)
                         .titleLarge
                         .override(
-                          font: GoogleFonts.outfit(
-                            fontWeight: FontWeight.w500,
+                          font: GoogleFonts.interTight(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .titleLarge
+                                .fontWeight,
                             fontStyle: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .fontStyle,
                           ),
-                          color: Color(0xFF14181B),
-                          fontSize: 22.0,
+                          fontSize: 20.0,
                           letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .titleLarge
+                              .fontWeight,
                           fontStyle:
                               FlutterFlowTheme.of(context).titleLarge.fontStyle,
                         ),
@@ -158,7 +191,20 @@ class _ReceptionistReservationWidgetState
                                 .fontStyle,
                           ),
                           color: Color(0xFF14181B),
-                          fontSize: 14.0,
+                          fontSize: () {
+                            if (MediaQuery.sizeOf(context).width <
+                                kBreakpointSmall) {
+                              return 14.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointMedium) {
+                              return 20.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointLarge) {
+                              return 24.0;
+                            } else {
+                              return 28.0;
+                            }
+                          }(),
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.normal,
                           fontStyle:
@@ -174,7 +220,20 @@ class _ReceptionistReservationWidgetState
                                 .fontStyle,
                           ),
                           color: Colors.white,
-                          fontSize: 16.0,
+                          fontSize: () {
+                            if (MediaQuery.sizeOf(context).width <
+                                kBreakpointSmall) {
+                              return 16.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointMedium) {
+                              return 20.0;
+                            } else if (MediaQuery.sizeOf(context).width <
+                                kBreakpointLarge) {
+                              return 24.0;
+                            } else {
+                              return 28.0;
+                            }
+                          }(),
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                           fontStyle:
@@ -189,7 +248,20 @@ class _ReceptionistReservationWidgetState
                                     .fontStyle,
                               ),
                               color: Color(0xFF57636C),
-                              fontSize: 14.0,
+                              fontSize: () {
+                                if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointSmall) {
+                                  return 14.0;
+                                } else if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointMedium) {
+                                  return 18.0;
+                                } else if (MediaQuery.sizeOf(context).width <
+                                    kBreakpointLarge) {
+                                  return 22.0;
+                                } else {
+                                  return 26.0;
+                                }
+                              }(),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
                               fontStyle: FlutterFlowTheme.of(context)
@@ -356,6 +428,7 @@ class _ReceptionistReservationWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -377,12 +450,10 @@ class _ReceptionistReservationWidgetState
                                                       .secondaryText,
                                                   size: 24.0,
                                                 ),
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                fillColor: Colors.white,
                                                 elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 0.0,
+                                                borderColor: Color(0x25000000),
+                                                borderWidth: 1.0,
                                                 borderRadius: 8.0,
                                                 margin: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -515,6 +586,7 @@ class _ReceptionistReservationWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -536,12 +608,10 @@ class _ReceptionistReservationWidgetState
                                                       .secondaryText,
                                                   size: 24.0,
                                                 ),
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                fillColor: Colors.white,
                                                 elevation: 2.0,
-                                                borderColor: Colors.transparent,
-                                                borderWidth: 0.0,
+                                                borderColor: Color(0x25000000),
+                                                borderWidth: 1.0,
                                                 borderRadius: 8.0,
                                                 margin: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -709,6 +779,7 @@ class _ReceptionistReservationWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -721,7 +792,7 @@ class _ReceptionistReservationWidgetState
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                    hintText: 'Select a room',
+                                                    hintText: 'Select....',
                                                     icon: Icon(
                                                       Icons
                                                           .keyboard_arrow_down_rounded,
@@ -731,13 +802,11 @@ class _ReceptionistReservationWidgetState
                                                               .secondaryText,
                                                       size: 24.0,
                                                     ),
-                                                    fillColor: FlutterFlowTheme
-                                                            .of(context)
-                                                        .secondaryBackground,
+                                                    fillColor: Colors.white,
                                                     elevation: 2.0,
                                                     borderColor:
-                                                        Colors.transparent,
-                                                    borderWidth: 0.0,
+                                                        Color(0x25000000),
+                                                    borderWidth: 1.0,
                                                     borderRadius: 8.0,
                                                     margin:
                                                         EdgeInsetsDirectional
@@ -746,6 +815,268 @@ class _ReceptionistReservationWidgetState
                                                     hidesUnderline: true,
                                                     isOverButton: false,
                                                     isSearchable: false,
+                                                    isMultiSelect: false,
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Container(
+                          width: 100.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 3.0,
+                                color: Color(0x33000000),
+                                offset: Offset(
+                                  0.0,
+                                  1.0,
+                                ),
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        'Select User',
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .override(
+                                              font: GoogleFonts.outfit(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .fontStyle,
+                                              ),
+                                              color: Color(0xFF14181B),
+                                              fontSize: 24.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineSmall
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 4.0, 0.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 8.0, 0.0),
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0x4DEE8B60),
+                                              elevation: 0.0,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              child: StreamBuilder<
+                                                  List<UserRecord>>(
+                                                stream: queryUserRecord(
+                                                  queryBuilder: (userRecord) =>
+                                                      userRecord.whereNotIn(
+                                                          'email', [
+                                                    'admin@aproom.com',
+                                                    'rec@aproom.com'
+                                                  ]),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<UserRecord>
+                                                      userDropDownUserRecordList =
+                                                      snapshot.data!
+                                                          .where((u) =>
+                                                              u.uid !=
+                                                              currentUserUid)
+                                                          .toList();
+
+                                                  return FlutterFlowDropDown<
+                                                      String>(
+                                                    controller: _model
+                                                            .userDropDownValueController ??=
+                                                        FormFieldController<
+                                                            String>(null),
+                                                    options:
+                                                        userDropDownUserRecordList
+                                                            .map((e) => e.email)
+                                                            .toList(),
+                                                    onChanged: (val) =>
+                                                        safeSetState(() => _model
+                                                                .userDropDownValue =
+                                                            val),
+                                                    width: 200.0,
+                                                    height: 40.0,
+                                                    searchHintTextStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .inter(
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              color:
+                                                                  Colors.black,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                    searchTextStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .inter(
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: Colors.black,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                    hintText:
+                                                        'example@aproom.com',
+                                                    searchHintText: 'Search...',
+                                                    searchCursorColor:
+                                                        Colors.black,
+                                                    icon: Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 24.0,
+                                                    ),
+                                                    fillColor: Colors.white,
+                                                    elevation: 2.0,
+                                                    borderColor:
+                                                        Color(0x25000000),
+                                                    borderWidth: 1.0,
+                                                    borderRadius: 8.0,
+                                                    margin:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    hidesUnderline: true,
+                                                    isOverButton: false,
+                                                    isSearchable: true,
                                                     isMultiSelect: false,
                                                   );
                                                 },
@@ -812,7 +1143,7 @@ class _ReceptionistReservationWidgetState
                                               _model.calendarSelectedDay?.start,
                                           pax: _model.paxDropDownValue,
                                           bookingTime: _model.timeDropDownValue,
-                                          email: currentUserEmail,
+                                          email: _model.userDropDownValue,
                                           roomID: _model.roomDropDownValue,
                                           status: 'Pending',
                                         ));

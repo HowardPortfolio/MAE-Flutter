@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/receptionist/receptionist_navigation/receptionist_navigation_widget.dart';
+import '/index.dart';
 import 'receptionist_reservation_widget.dart'
     show ReceptionistReservationWidget;
 import 'package:flutter/material.dart';
@@ -21,6 +22,9 @@ class ReceptionistReservationModel
   // State field(s) for RoomDropDown widget.
   String? roomDropDownValue;
   FormFieldController<String>? roomDropDownValueController;
+  // State field(s) for UserDropDown widget.
+  String? userDropDownValue;
+  FormFieldController<String>? userDropDownValueController;
   // Model for ReceptionistNavigation component.
   late ReceptionistNavigationModel receptionistNavigationModel;
 

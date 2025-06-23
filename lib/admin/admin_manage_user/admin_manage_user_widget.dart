@@ -1,3 +1,4 @@
+import '/admin/admin_navigation/admin_navigation_widget.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -5,29 +6,28 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'admin_manage_booking_model.dart';
-export 'admin_manage_booking_model.dart';
+import 'admin_manage_user_model.dart';
+export 'admin_manage_user_model.dart';
 
-class AdminManageBookingWidget extends StatefulWidget {
-  const AdminManageBookingWidget({super.key});
+class AdminManageUserWidget extends StatefulWidget {
+  const AdminManageUserWidget({super.key});
 
-  static String routeName = 'AdminManageBooking';
-  static String routePath = '/adminManageBooking';
+  static String routeName = 'AdminManageUser';
+  static String routePath = '/adminManageUser';
 
   @override
-  State<AdminManageBookingWidget> createState() =>
-      _AdminManageBookingWidgetState();
+  State<AdminManageUserWidget> createState() => _AdminManageUserWidgetState();
 }
 
-class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
-  late AdminManageBookingModel _model;
+class _AdminManageUserWidgetState extends State<AdminManageUserWidget> {
+  late AdminManageUserModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AdminManageBookingModel());
+    _model = createModel(context, () => AdminManageUserModel());
   }
 
   @override
@@ -55,7 +55,7 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Manage Bookings',
+                'Manage Users',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       font: GoogleFonts.outfit(
                         fontWeight: FontWeight.w500,
@@ -74,21 +74,23 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
             ].divide(SizedBox(height: 4.0)),
           ),
           actions: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 12.0, 8.0),
-              child: FlutterFlowIconButton(
-                borderRadius: 12.0,
-                borderWidth: 0.0,
-                buttonSize: 40.0,
-                fillColor: Colors.white,
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Color(0xFF15161E),
-                  size: 24.0,
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 40.0,
+                  fillColor: Colors.white,
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    context.pushNamed(SettingsWidget.routeName);
+                  },
                 ),
-                onPressed: () async {
-                  context.pushNamed(AdminHomeWidget.routeName);
-                },
               ),
             ),
           ],
@@ -119,8 +121,12 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       children: [
-                        StreamBuilder<List<BookingRecord>>(
-                          stream: queryBookingRecord(),
+                        StreamBuilder<List<UserRecord>>(
+                          stream: queryUserRecord(
+                            queryBuilder: (userRecord) => userRecord.whereNotIn(
+                                'email',
+                                ['admin@aproom.com', 'rec@aproom.com']),
+                          ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -136,16 +142,15 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                                 ),
                               );
                             }
-                            List<BookingRecord> columnBookingRecordList =
+                            List<UserRecord> columnUserRecordList =
                                 snapshot.data!;
 
                             return Column(
                               mainAxisSize: MainAxisSize.max,
-                              children:
-                                  List.generate(columnBookingRecordList.length,
-                                      (columnIndex) {
-                                final columnBookingRecord =
-                                    columnBookingRecordList[columnIndex];
+                              children: List.generate(
+                                  columnUserRecordList.length, (columnIndex) {
+                                final columnUserRecord =
+                                    columnUserRecordList[columnIndex];
                                 return Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(),
@@ -168,7 +173,7 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  columnBookingRecord.roomID,
+                                                  columnUserRecord.displayName,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyLarge
@@ -213,7 +218,7 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                                                                     12.0,
                                                                     0.0),
                                                         child: Text(
-                                                          columnBookingRecord
+                                                          columnUserRecord
                                                               .email,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -269,42 +274,9 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                                                                     0.0),
                                                         child: Text(
                                                           dateTimeFormat(
-                                                              "EEEE, dd/MM/yyyy",
-                                                              columnBookingRecord
-                                                                  .bookingDate!),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelSmall
-                                                              .override(
-                                                                font: GoogleFonts
-                                                                    .plusJakartaSans(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelSmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: Color(
-                                                                    0xFF606A85),
-                                                                fontSize: 10.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelSmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          columnBookingRecord
-                                                              .bookingTime,
+                                                              "yyyy MMMM dd, hh:mm a",
+                                                              columnUserRecord
+                                                                  .createdTime!),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .labelSmall
@@ -352,12 +324,12 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       context.pushNamed(
-                                                        EditBookingWidget
+                                                        AdminEditUserWidget
                                                             .routeName,
                                                         queryParameters: {
-                                                          'bookingid':
+                                                          'userid':
                                                               serializeParam(
-                                                            columnBookingRecord
+                                                            columnUserRecord
                                                                 .reference,
                                                             ParamType
                                                                 .DocumentReference,
@@ -366,7 +338,7 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                                                       );
                                                     },
                                                     child: Text(
-                                                      'Modify Booking',
+                                                      'Edit User',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .labelSmall
@@ -412,6 +384,32 @@ class _AdminManageBookingWidgetState extends State<AdminManageBookingWidget> {
                       ],
                     ),
                   ],
+                ),
+              ),
+              wrapWithModel(
+                model: _model.adminNavigationModel,
+                updateCallback: () => safeSetState(() {}),
+                child: AdminNavigationWidget(
+                  page: 'AManageUser',
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(1.0, 1.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 85.0),
+                  child: FlutterFlowIconButton(
+                    borderRadius: 8.0,
+                    buttonSize: 40.0,
+                    fillColor: Color(0xFF1B63FE),
+                    icon: Icon(
+                      Icons.add,
+                      color: FlutterFlowTheme.of(context).info,
+                      size: 24.0,
+                    ),
+                    onPressed: () {
+                      print('IconButton pressed ...');
+                    },
+                  ),
                 ),
               ),
             ],

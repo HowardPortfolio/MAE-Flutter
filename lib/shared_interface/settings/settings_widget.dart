@@ -1,8 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/user/user_navigation/user_navigation_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,6 +35,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
+    _model.textController3 ??= TextEditingController();
+    _model.textFieldFocusNode3 ??= FocusNode();
   }
 
   @override
@@ -48,6 +52,54 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Settings',
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    font: GoogleFonts.outfit(
+                      fontWeight: FontWeight.w500,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                    ),
+                    color: Color(0xFF14181B),
+                    fontSize: 24.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  ),
+            ),
+          ].divide(SizedBox(height: 4.0)),
+        ),
+        actions: [
+          Align(
+            alignment: AlignmentDirectional(-1.0, 0.0),
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+              child: FlutterFlowIconButton(
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.black,
+                  size: 24.0,
+                ),
+                onPressed: () async {
+                  context.safePop();
+                },
+              ),
+            ),
+          ),
+        ],
+        centerTitle: false,
+        elevation: 0.0,
+      ),
       body: SafeArea(
         top: true,
         child: Stack(
@@ -56,35 +108,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          'Settings',
-                          style: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .override(
-                                font: GoogleFonts.outfit(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .headlineMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0xFF14181B),
-                                fontSize: 24.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .headlineMedium
-                                    .fontStyle,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
@@ -102,6 +125,114 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 child: TextFormField(
                                   controller: _model.textController1,
                                   focusNode: _model.textFieldFocusNode1,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Username',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          font: GoogleFonts.plusJakartaSans(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF57636C),
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                    hintText: 'Username',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          font: GoogleFonts.plusJakartaSans(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF57636C),
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE0E3E7),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFF4B39EF),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFFF5963),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFFF5963),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.plusJakartaSans(
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.black,
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                  validator: _model.textController1Validator
+                                      .asValidator(context),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 16.0, 0.0, 0.0),
+                                child: TextFormField(
+                                  controller: _model.textController2,
+                                  focusNode: _model.textFieldFocusNode2,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'New Password',
@@ -193,7 +324,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                  validator: _model.textController1Validator
+                                  validator: _model.textController2Validator
                                       .asValidator(context),
                                 ),
                               ),
@@ -208,8 +339,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.textController2,
-                                  focusNode: _model.textFieldFocusNode2,
+                                  controller: _model.textController3,
+                                  focusNode: _model.textFieldFocusNode3,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Confirm Password',
@@ -301,7 +432,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                  validator: _model.textController2Validator
+                                  validator: _model.textController3Validator
                                       .asValidator(context),
                                 ),
                               ),
@@ -313,15 +444,18 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
-                      if ((_model.textController1.text != '') &&
-                          (_model.textController1.text ==
-                              _model.textController2.text)) {
+                      if ((_model.textController2.text ==
+                              _model.textController3.text) &&
+                          (_model.textController2.text != '')) {
                         await authManager.updatePassword(
-                          newPassword: _model.textController1.text,
+                          newPassword: _model.textController2.text,
                           context: context,
                         );
                         safeSetState(() {});
 
+                        await currentUserReference!.update(createUserRecordData(
+                          displayName: _model.textController1.text,
+                        ));
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -466,13 +600,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ),
                   ),
                 ],
-              ),
-            ),
-            wrapWithModel(
-              model: _model.userNavigationModel,
-              updateCallback: () => safeSetState(() {}),
-              child: UserNavigationWidget(
-                page: 'Settings',
               ),
             ),
           ],

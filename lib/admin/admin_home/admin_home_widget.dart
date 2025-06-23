@@ -1,6 +1,7 @@
 import '/admin/admin_navigation/admin_navigation_widget.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -157,7 +158,27 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
               ),
             ].divide(SizedBox(height: 4.0)),
           ),
-          actions: [],
+          actions: [
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+                child: FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 40.0,
+                  fillColor: Colors.white,
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    context.pushNamed(SettingsWidget.routeName);
+                  },
+                ),
+              ),
+            ),
+          ],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -367,8 +388,8 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                   Align(
                     alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Container(
-                      width: 416.8,
-                      height: 553.2,
+                      width: double.infinity,
+                      height: 480.0,
                       decoration: BoxDecoration(
                         color: Colors.white,
                       ),
@@ -625,10 +646,6 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [],
                                           ),
                                         ],
                                       ),
