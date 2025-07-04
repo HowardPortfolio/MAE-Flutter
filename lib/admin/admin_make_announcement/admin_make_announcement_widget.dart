@@ -495,24 +495,52 @@ class _AdminMakeAnnouncementWidgetState
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        if (_model.formKey.currentState == null ||
-                            !_model.formKey.currentState!.validate()) {
-                          return;
+                        if (_model.titleTextController.text != '') {
+                          await NotificationRecord.collection.doc().set({
+                            ...createNotificationRecordData(
+                              message: _model.descriptionTextController.text,
+                              title: _model.titleTextController.text,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'timestamp': FieldValue.serverTimestamp(),
+                              },
+                            ),
+                          });
+
+                          context.goNamed(AdminAnnouncementWidget.routeName);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Title/Description should not be empty!',
+                                style: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      font: GoogleFonts.interTight(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                      color: Colors.black,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).error,
+                            ),
+                          );
                         }
-
-                        await NotificationRecord.collection.doc().set({
-                          ...createNotificationRecordData(
-                            message: _model.descriptionTextController.text,
-                            title: _model.titleTextController.text,
-                          ),
-                          ...mapToFirestore(
-                            {
-                              'timestamp': FieldValue.serverTimestamp(),
-                            },
-                          ),
-                        });
-
-                        context.pushNamed(AdminAnnouncementWidget.routeName);
                       },
                       text: 'Confirm',
                       options: FFButtonOptions(

@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -946,19 +947,76 @@ class _AdminReservationWidgetState extends State<AdminReservationWidget> {
                                                             .userDropDownValueController ??=
                                                         FormFieldController<
                                                             String>(null),
-                                                    options: [
-                                                      '2-5',
-                                                      '6-10',
-                                                      '10-25',
-                                                      '26-50',
-                                                      'More than 50'
-                                                    ],
+                                                    options:
+                                                        userDropDownUserRecordList
+                                                            .map((e) => e.email)
+                                                            .toList(),
                                                     onChanged: (val) =>
                                                         safeSetState(() => _model
                                                                 .userDropDownValue =
                                                             val),
                                                     width: 200.0,
                                                     height: 40.0,
+                                                    searchHintTextStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .inter(
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                    searchTextStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .inter(
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              color:
+                                                                  Colors.black,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyMedium
@@ -976,6 +1034,7 @@ class _AdminReservationWidgetState extends State<AdminReservationWidget> {
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -988,7 +1047,9 @@ class _AdminReservationWidgetState extends State<AdminReservationWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                    hintText: 'Select...',
+                                                    hintText:
+                                                        'example@aproom.com',
+                                                    searchHintText: 'Search...',
                                                     icon: Icon(
                                                       Icons
                                                           .keyboard_arrow_down_rounded,
@@ -1010,7 +1071,7 @@ class _AdminReservationWidgetState extends State<AdminReservationWidget> {
                                                                 12.0, 0.0),
                                                     hidesUnderline: true,
                                                     isOverButton: false,
-                                                    isSearchable: false,
+                                                    isSearchable: true,
                                                     isMultiSelect: false,
                                                   );
                                                 },
@@ -1069,23 +1130,126 @@ class _AdminReservationWidgetState extends State<AdminReservationWidget> {
 
                               return FFButtonWidget(
                                 onPressed: () async {
-                                  if (buttonBookingRecordList.length == 0) {
-                                    await BookingRecord.collection
-                                        .doc()
-                                        .set(createBookingRecordData(
-                                          bookingDate:
-                                              _model.calendarSelectedDay?.start,
-                                          pax: _model.paxDropDownValue,
-                                          bookingTime: _model.timeDropDownValue,
-                                          email: _model.userDropDownValue,
-                                          roomID: _model.roomDropDownValue,
-                                          status: 'Pending',
-                                        ));
+                                  if ((_model.timeDropDownValue != null &&
+                                          _model.timeDropDownValue != '') &&
+                                      (_model.paxDropDownValue != null &&
+                                          _model.paxDropDownValue != '') &&
+                                      (_model.roomDropDownValue != null &&
+                                          _model.roomDropDownValue != '') &&
+                                      (_model.userDropDownValue != null &&
+                                          _model.userDropDownValue != '')) {
+                                    if (_model.calendarSelectedDay!.start >=
+                                        functions.getCurrentDate()!) {
+                                      if (buttonBookingRecordList.length == 0) {
+                                        await BookingRecord.collection
+                                            .doc()
+                                            .set(createBookingRecordData(
+                                              bookingDate: _model
+                                                  .calendarSelectedDay?.start,
+                                              pax: _model.paxDropDownValue,
+                                              bookingTime:
+                                                  _model.timeDropDownValue,
+                                              email: _model.userDropDownValue,
+                                              roomID: _model.roomDropDownValue,
+                                              status: 'Pending',
+                                            ));
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Time Slot Taken',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.interTight(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .error,
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Invalid booking date!',
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.interTight(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                    }
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Time Slot Taken',
+                                          'Fields cannot be empty!',
                                           style: FlutterFlowTheme.of(context)
                                               .titleSmall
                                               .override(

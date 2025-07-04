@@ -161,7 +161,7 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
                                 24.0, 0.0, 0.0, 0.0),
                             child: Text(
                               dateTimeFormat(
-                                  "EEEE, dd/MM/yyyy",
+                                  "yMd",
                                   viewAnnouncementNotificationRecord
                                       .timestamp!),
                               style: FlutterFlowTheme.of(context)
@@ -223,7 +223,7 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 4.0, 0.0, 0.0),
+                                24.0, 4.0, 0.0, 20.0),
                             child: Text(
                               viewAnnouncementNotificationRecord.title,
                               textAlign: TextAlign.start,

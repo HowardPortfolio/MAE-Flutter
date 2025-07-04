@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/user/user_navigation/user_navigation_widget.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -428,6 +429,7 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -585,6 +587,7 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -777,6 +780,7 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
+                                                          color: Colors.black,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -870,47 +874,149 @@ class _ReservationWidgetState extends State<ReservationWidget> {
 
                               return FFButtonWidget(
                                 onPressed: () async {
-                                  if (buttonBookingRecordList.length == 0) {
-                                    var bookingRecordReference =
-                                        BookingRecord.collection.doc();
-                                    await bookingRecordReference
-                                        .set(createBookingRecordData(
-                                      bookingDate:
-                                          _model.calendarSelectedDay?.start,
-                                      pax: _model.paxDropDownValue,
-                                      bookingTime: _model.timeDropDownValue,
-                                      email: currentUserEmail,
-                                      roomID: _model.roomDropDownValue,
-                                      status: 'Pending',
-                                    ));
-                                    _model.newbooking =
-                                        BookingRecord.getDocumentFromData(
-                                            createBookingRecordData(
-                                              bookingDate: _model
-                                                  .calendarSelectedDay?.start,
-                                              pax: _model.paxDropDownValue,
-                                              bookingTime:
-                                                  _model.timeDropDownValue,
-                                              email: currentUserEmail,
-                                              roomID: _model.roomDropDownValue,
-                                              status: 'Pending',
-                                            ),
-                                            bookingRecordReference);
+                                  if ((_model.timeDropDownValue != null &&
+                                          _model.timeDropDownValue != '') &&
+                                      (_model.paxDropDownValue != null &&
+                                          _model.paxDropDownValue != '') &&
+                                      (_model.roomDropDownValue != null &&
+                                          _model.roomDropDownValue != '')) {
+                                    if (_model.calendarSelectedDay!.start >=
+                                        functions.getCurrentDate()!) {
+                                      if (buttonBookingRecordList.length == 0) {
+                                        var bookingRecordReference =
+                                            BookingRecord.collection.doc();
+                                        await bookingRecordReference
+                                            .set(createBookingRecordData(
+                                          bookingDate:
+                                              _model.calendarSelectedDay?.start,
+                                          pax: _model.paxDropDownValue,
+                                          bookingTime: _model.timeDropDownValue,
+                                          email: currentUserEmail,
+                                          roomID: _model.roomDropDownValue,
+                                          status: 'Pending',
+                                        ));
+                                        _model.newbooking =
+                                            BookingRecord.getDocumentFromData(
+                                                createBookingRecordData(
+                                                  bookingDate: _model
+                                                      .calendarSelectedDay
+                                                      ?.start,
+                                                  pax: _model.paxDropDownValue,
+                                                  bookingTime:
+                                                      _model.timeDropDownValue,
+                                                  email: currentUserEmail,
+                                                  roomID:
+                                                      _model.roomDropDownValue,
+                                                  status: 'Pending',
+                                                ),
+                                                bookingRecordReference);
 
-                                    context.pushNamed(
-                                      ConfirmWidget.routeName,
-                                      queryParameters: {
-                                        'bookingid': serializeParam(
-                                          _model.newbooking?.reference,
-                                          ParamType.DocumentReference,
+                                        context.pushNamed(
+                                          ConfirmWidget.routeName,
+                                          queryParameters: {
+                                            'bookingid': serializeParam(
+                                              _model.newbooking?.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Time Slot Taken',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.interTight(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .error,
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Invalid booking date!',
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.interTight(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
                                         ),
-                                      }.withoutNulls,
-                                    );
+                                      );
+                                    }
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Time Slot Taken',
+                                          'Fields should not be empty!',
                                           style: FlutterFlowTheme.of(context)
                                               .titleSmall
                                               .override(

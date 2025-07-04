@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/receptionist/receptionist_navigation/receptionist_navigation_widget.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -1135,23 +1136,126 @@ class _ReceptionistReservationWidgetState
 
                               return FFButtonWidget(
                                 onPressed: () async {
-                                  if (buttonBookingRecordList.length == 0) {
-                                    await BookingRecord.collection
-                                        .doc()
-                                        .set(createBookingRecordData(
-                                          bookingDate:
-                                              _model.calendarSelectedDay?.start,
-                                          pax: _model.paxDropDownValue,
-                                          bookingTime: _model.timeDropDownValue,
-                                          email: _model.userDropDownValue,
-                                          roomID: _model.roomDropDownValue,
-                                          status: 'Pending',
-                                        ));
+                                  if ((_model.timeDropDownValue != null &&
+                                          _model.timeDropDownValue != '') &&
+                                      (_model.paxDropDownValue != null &&
+                                          _model.paxDropDownValue != '') &&
+                                      (_model.roomDropDownValue != null &&
+                                          _model.roomDropDownValue != '') &&
+                                      (_model.userDropDownValue != null &&
+                                          _model.userDropDownValue != '')) {
+                                    if (_model.calendarSelectedDay!.start >=
+                                        functions.getCurrentDate()!) {
+                                      if (buttonBookingRecordList.length == 0) {
+                                        await BookingRecord.collection
+                                            .doc()
+                                            .set(createBookingRecordData(
+                                              bookingDate: _model
+                                                  .calendarSelectedDay?.start,
+                                              pax: _model.paxDropDownValue,
+                                              bookingTime:
+                                                  _model.timeDropDownValue,
+                                              email: _model.userDropDownValue,
+                                              roomID: _model.roomDropDownValue,
+                                              status: 'Pending',
+                                            ));
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Time Slot Taken',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.interTight(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .error,
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Invalid booking date!',
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.interTight(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                    }
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Time Slot Taken',
+                                          'Fields cannot be empty',
                                           style: FlutterFlowTheme.of(context)
                                               .titleSmall
                                               .override(
