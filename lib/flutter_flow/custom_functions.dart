@@ -25,3 +25,41 @@ DateTime? getCurrentDate() {
 
   return dateAtMidnight;
 }
+
+String? getEmailDomain(String email) {
+  String domain = email.split("@").last;
+  return domain;
+}
+
+String? getUsername(String username) {
+  return username;
+}
+
+bool? roomStatus(String bookingTime) {
+  try {
+    // Split the booking time string
+    final times = bookingTime.split(' - ');
+    if (times.length != 2) return false;
+
+    // Parse the start and end times
+    final startTime = DateFormat.jm().parse(times[0]);
+    final endTime = DateFormat.jm().parse(times[1]);
+
+    // Get the current time (today's date with current hour & minute)
+    final now = DateTime.now();
+    final currentTime =
+        DateTime(now.year, now.month, now.day, now.hour, now.minute);
+
+    // Adjust start and end time to today's date
+    final todayStartTime = DateTime(
+        now.year, now.month, now.day, startTime.hour, startTime.minute);
+    final todayEndTime =
+        DateTime(now.year, now.month, now.day, endTime.hour, endTime.minute);
+
+    // Compare
+    return currentTime.isAfter(todayStartTime) &&
+        currentTime.isBefore(todayEndTime);
+  } catch (e) {
+    return false; // In case of any error
+  }
+}

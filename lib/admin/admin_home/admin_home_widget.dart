@@ -1,4 +1,5 @@
 import '/admin/admin_navigation/admin_navigation_widget.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -35,6 +36,25 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
     _model = createModel(context, () => AdminHomeModel());
 
     animationsMap.addAll({
+      'columnOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
       'containerOnPageLoadAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
@@ -93,7 +113,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
           ),
         ],
       ),
-      'columnOnPageLoadAnimation': AnimationInfo(
+      'columnOnPageLoadAnimation2': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           FadeEffect(
@@ -139,21 +159,61 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Welcome, Admin',
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      font: GoogleFonts.outfit(
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontStyle,
+              StreamBuilder<UserRecord>(
+                stream: UserRecord.getDocument(currentUserReference!),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
                       ),
-                      color: Color(0xFF15161E),
-                      fontSize: 24.0,
+                    );
+                  }
+
+                  final textUserRecord = snapshot.data!;
+
+                  return Text(
+                    'Welcome, ${textUserRecord.displayName}',
+                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                          font: GoogleFonts.outfit(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .fontStyle,
+                          ),
+                          color: Color(0xFF15161E),
+                          fontSize: 24.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
+                  );
+                },
+              ),
+              Text(
+                'Admin Home',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      color: Colors.black,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
               ),
             ].divide(SizedBox(height: 4.0)),
@@ -690,7 +750,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                                     );
                                   }),
                                 ).animateOnPageLoad(animationsMap[
-                                    'columnOnPageLoadAnimation']!);
+                                    'columnOnPageLoadAnimation2']!);
                               },
                             ),
                           ],
@@ -699,7 +759,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                     ),
                   ),
                 ],
-              ),
+              ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation1']!),
               wrapWithModel(
                 model: _model.adminNavigationModel,
                 updateCallback: () => safeSetState(() {}),

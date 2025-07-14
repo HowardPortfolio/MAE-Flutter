@@ -1,10 +1,12 @@
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/receptionist/receptionist_navigation/receptionist_navigation_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'receptionist_announcement_model.dart';
 export 'receptionist_announcement_model.dart';
@@ -21,15 +23,40 @@ class ReceptionistAnnouncementWidget extends StatefulWidget {
 }
 
 class _ReceptionistAnnouncementWidgetState
-    extends State<ReceptionistAnnouncementWidget> {
+    extends State<ReceptionistAnnouncementWidget>
+    with TickerProviderStateMixin {
   late ReceptionistAnnouncementModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ReceptionistAnnouncementModel());
+
+    animationsMap.addAll({
+      'listViewOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -266,7 +293,7 @@ class _ReceptionistAnnouncementWidgetState
                   },
                 ),
               ],
-            ),
+            ).animateOnPageLoad(animationsMap['listViewOnPageLoadAnimation']!),
             wrapWithModel(
               model: _model.receptionistNavigationModel,
               updateCallback: () => safeSetState(() {}),

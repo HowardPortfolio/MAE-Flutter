@@ -1,10 +1,12 @@
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'receptionist_confirm_model.dart';
 export 'receptionist_confirm_model.dart';
@@ -25,15 +27,135 @@ class ReceptionistConfirmWidget extends StatefulWidget {
       _ReceptionistConfirmWidgetState();
 }
 
-class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
+class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget>
+    with TickerProviderStateMixin {
   late ReceptionistConfirmModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ReceptionistConfirmModel());
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'buttonOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -60,12 +182,13 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   FlutterFlowIconButton(
+                    borderColor: Color(0xFFE0E3E7),
                     borderRadius: 30.0,
                     buttonSize: 44.0,
                     icon: Icon(
-                      Icons.arrow_back_ios_new,
+                      Icons.close_rounded,
                       color: Color(0xFF57636C),
-                      size: 24.0,
+                      size: 25.0,
                     ),
                     onPressed: () async {
                       context.pushNamed(ReceptionistHomeWidget.routeName);
@@ -94,7 +217,8 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                   size: 60.0,
                 ),
               ),
-            ),
+            ).animateOnPageLoad(
+                animationsMap['containerOnPageLoadAnimation1']!),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
               child: Text(
@@ -112,7 +236,7 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                       fontStyle:
                           FlutterFlowTheme.of(context).displaySmall.fontStyle,
                     ),
-              ),
+              ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation1']!),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
@@ -153,7 +277,8 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                               .displayLarge
                               .fontStyle,
                         ),
-                  );
+                  ).animateOnPageLoad(
+                      animationsMap['textOnPageLoadAnimation2']!);
                 },
               ),
             ),
@@ -175,7 +300,7 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                       fontStyle:
                           FlutterFlowTheme.of(context).labelLarge.fontStyle,
                     ),
-              ),
+              ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation3']!),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
@@ -310,7 +435,8 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                     ],
                   ),
                 ),
-              ),
+              ).animateOnPageLoad(
+                  animationsMap['containerOnPageLoadAnimation2']!),
             ),
             Expanded(
               child: Align(
@@ -368,7 +494,8 @@ class _ReceptionistConfirmWidgetState extends State<ReceptionistConfirmWidget> {
                                 hoverColor:
                                     FlutterFlowTheme.of(context).primary,
                               ),
-                            ),
+                            ).animateOnPageLoad(
+                                animationsMap['buttonOnPageLoadAnimation']!),
                           ),
                         ),
                       ),

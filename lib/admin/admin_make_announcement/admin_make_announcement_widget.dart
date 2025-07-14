@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_make_announcement_model.dart';
 export 'admin_make_announcement_model.dart';
@@ -22,10 +24,12 @@ class AdminMakeAnnouncementWidget extends StatefulWidget {
 }
 
 class _AdminMakeAnnouncementWidgetState
-    extends State<AdminMakeAnnouncementWidget> {
+    extends State<AdminMakeAnnouncementWidget> with TickerProviderStateMixin {
   late AdminMakeAnnouncementModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -38,6 +42,27 @@ class _AdminMakeAnnouncementWidgetState
     _model.descriptionTextController ??= TextEditingController();
     _model.descriptionFocusNode ??= FocusNode();
     _model.descriptionFocusNode!.addListener(() => safeSetState(() {}));
+    animationsMap.addAll({
+      'columnOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -578,7 +603,7 @@ class _AdminMakeAnnouncementWidgetState
                   ),
                 ),
               ],
-            ),
+            ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),
           ),
         ),
       ),

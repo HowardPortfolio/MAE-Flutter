@@ -5,6 +5,10 @@ import 'admin_settings_widget.dart' show AdminSettingsWidget;
 import 'package:flutter/material.dart';
 
 class AdminSettingsModel extends FlutterFlowModel<AdminSettingsWidget> {
+  ///  Local state fields for this page.
+
+  int? counter = 0;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextField widget.

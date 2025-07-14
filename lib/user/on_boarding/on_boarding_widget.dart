@@ -73,6 +73,25 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
           ),
         ],
       ),
+      'imageOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
       'textOnPageLoadAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
@@ -202,7 +221,8 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                             height: 200.0,
                             fit: BoxFit.cover,
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['imageOnPageLoadAnimation']!),
                       ).animateOnPageLoad(
                           animationsMap['containerOnPageLoadAnimation2']!),
                       Padding(

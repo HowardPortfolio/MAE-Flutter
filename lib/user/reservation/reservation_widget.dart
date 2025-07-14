@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -11,17 +12,13 @@ import '/user/user_navigation/user_navigation_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'reservation_model.dart';
 export 'reservation_model.dart';
 
 class ReservationWidget extends StatefulWidget {
-  const ReservationWidget({
-    super.key,
-    this.bookingtime,
-  });
-
-  final List<String>? bookingtime;
+  const ReservationWidget({super.key});
 
   static String routeName = 'Reservation';
   static String routePath = '/reservation';
@@ -30,15 +27,40 @@ class ReservationWidget extends StatefulWidget {
   State<ReservationWidget> createState() => _ReservationWidgetState();
 }
 
-class _ReservationWidgetState extends State<ReservationWidget> {
+class _ReservationWidgetState extends State<ReservationWidget>
+    with TickerProviderStateMixin {
   late ReservationModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ReservationModel());
+
+    animationsMap.addAll({
+      'columnOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -404,7 +426,8 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                                                   '3:00 PM - 4:00 PM',
                                                   '4:00 PM - 5:00 PM',
                                                   '5:00 PM - 6:00 PM',
-                                                  '6:00 PM - 7:00 PM'
+                                                  '6:00 PM - 7:00 PM',
+                                                  '12:00 AM - 1:00 AM'
                                                 ],
                                                 onChanged: (val) =>
                                                     safeSetState(() => _model
@@ -1100,7 +1123,7 @@ class _ReservationWidgetState extends State<ReservationWidget> {
                   ),
                 ].addToEnd(SizedBox(height: 70.0)),
               ),
-            ),
+            ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),
             wrapWithModel(
               model: _model.userNavigationModel,
               updateCallback: () => safeSetState(() {}),

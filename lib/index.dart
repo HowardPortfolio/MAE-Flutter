@@ -44,3 +44,5 @@ export '/receptionist/receptionist_home/receptionist_home_widget.dart'
 export '/admin/admin_manage_user/admin_manage_user_widget.dart'
     show AdminManageUserWidget;
 export '/shared_interface/settings/settings_widget.dart' show SettingsWidget;
+export '/admin/admin_add_user/admin_add_user_widget.dart'
+    show AdminAddUserWidget;

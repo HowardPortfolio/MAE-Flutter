@@ -1,10 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login_model.dart';
 export 'login_model.dart';
@@ -19,10 +22,13 @@ class LoginWidget extends StatefulWidget {
   State<LoginWidget> createState() => _LoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _LoginWidgetState extends State<LoginWidget>
+    with TickerProviderStateMixin {
   late LoginModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -34,6 +40,142 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'imageOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textFieldOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textFieldOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'buttonOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'richTextOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -108,7 +250,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
+                              ).animateOnPageLoad(
+                                  animationsMap['imageOnPageLoadAnimation']!),
                             ),
                           ),
                         ),
@@ -140,7 +283,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             .displaySmall
                                             .fontStyle,
                                       ),
-                                ),
+                                ).animateOnPageLoad(
+                                    animationsMap['textOnPageLoadAnimation1']!),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 24.0),
@@ -165,7 +309,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   .labelMedium
                                                   .fontStyle,
                                         ),
-                                  ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'textOnPageLoadAnimation2']!),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -259,7 +404,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           .emailAddressTextControllerValidator
                                           .asValidator(context),
                                     ),
-                                  ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'textFieldOnPageLoadAnimation1']!),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -366,7 +512,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           .passwordTextControllerValidator
                                           .asValidator(context),
                                     ),
-                                  ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'textFieldOnPageLoadAnimation2']!),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -385,21 +532,32 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         return;
                                       }
 
-                                      if (currentUserEmail ==
-                                          'admin@aproom.com') {
+                                      if (functions.getEmailDomain(
+                                              currentUserEmail) ==
+                                          'admin.aproom.com') {
                                         context.pushNamedAuth(
                                             AdminHomeWidget.routeName,
                                             context.mounted);
                                       } else {
-                                        if (currentUserEmail ==
-                                            'rec@aproom.com') {
+                                        if (functions.getEmailDomain(
+                                                currentUserEmail) ==
+                                            'rec.aproom.com') {
                                           context.pushNamedAuth(
                                               ReceptionistHomeWidget.routeName,
                                               context.mounted);
                                         } else {
                                           context.pushNamedAuth(
-                                              HomeWidget.routeName,
-                                              context.mounted);
+                                            HomeWidget.routeName,
+                                            context.mounted,
+                                            queryParameters: {
+                                              'userEmail': serializeParam(
+                                                _model
+                                                    .emailAddressTextController
+                                                    .text,
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
                                         }
                                       }
                                     },
@@ -441,7 +599,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       hoverColor:
                                           FlutterFlowTheme.of(context).primary,
                                     ),
-                                  ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'buttonOnPageLoadAnimation']!),
                                 ),
 
                                 // You will have to add an action on this rich text to go to your login page.
@@ -509,7 +668,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     .fontStyle,
                                           ),
                                     ),
-                                  ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'richTextOnPageLoadAnimation']!),
                                 ),
                               ],
                             ),

@@ -38,6 +38,25 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
     _model = createModel(context, () => ViewAnnouncementModel());
 
     animationsMap.addAll({
+      'columnOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
       'textOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
@@ -284,7 +303,7 @@ class _ViewAnnouncementWidgetState extends State<ViewAnnouncementWidget>
                     ),
                   ),
                 ],
-              ),
+              ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),
             ),
           ),
         );

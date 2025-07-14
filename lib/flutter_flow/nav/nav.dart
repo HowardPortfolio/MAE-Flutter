@@ -109,7 +109,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: HomeWidget.routeName,
           path: HomeWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => HomeWidget(),
+          builder: (context, params) => HomeWidget(
+            userEmail: params.getParam(
+              'userEmail',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: ConfirmWidget.routeName,
@@ -215,13 +220,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: ReservationWidget.routeName,
           path: ReservationWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => ReservationWidget(
-            bookingtime: params.getParam<String>(
-              'bookingtime',
-              ParamType.String,
-              isList: true,
-            ),
-          ),
+          builder: (context, params) => ReservationWidget(),
         ),
         FFRoute(
           name: ReceptionistReservationWidget.routeName,
@@ -278,6 +277,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: SettingsWidget.routeName,
           path: SettingsWidget.routePath,
           builder: (context, params) => SettingsWidget(),
+        ),
+        FFRoute(
+          name: AdminAddUserWidget.routeName,
+          path: AdminAddUserWidget.routePath,
+          builder: (context, params) => AdminAddUserWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'edit_booking_model.dart';
 export 'edit_booking_model.dart';
@@ -26,10 +28,13 @@ class EditBookingWidget extends StatefulWidget {
   State<EditBookingWidget> createState() => _EditBookingWidgetState();
 }
 
-class _EditBookingWidgetState extends State<EditBookingWidget> {
+class _EditBookingWidgetState extends State<EditBookingWidget>
+    with TickerProviderStateMixin {
   late EditBookingModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -37,6 +42,28 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
     _model = createModel(context, () => EditBookingModel());
 
     _model.textFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'columnOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 400.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -1248,7 +1275,8 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
                           ),
                         ],
                       ),
-                    );
+                    ).animateOnPageLoad(
+                        animationsMap['columnOnPageLoadAnimation']!);
                   },
                 ),
               ],
