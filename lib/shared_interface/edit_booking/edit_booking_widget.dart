@@ -869,7 +869,7 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                                     String>(
                                                               _model.dropDownValue3 ??=
                                                                   columnBookingRecord
-                                                                      .pax,
+                                                                      .roomID,
                                                             ),
                                                             options:
                                                                 dropDownRoomRecordList
