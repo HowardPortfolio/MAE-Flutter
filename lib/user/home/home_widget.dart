@@ -97,46 +97,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                   ),
             ),
-            StreamBuilder<UserRecord>(
-              stream: UserRecord.getDocument(currentUserReference!),
-              builder: (context, snapshot) {
-                // Customize what your widget looks like when it's loading.
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: SizedBox(
-                      width: 50.0,
-                      height: 50.0,
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          FlutterFlowTheme.of(context).primary,
-                        ),
-                      ),
-                    ),
-                  );
-                }
-
-                final textUserRecord = snapshot.data!;
-
-                return Text(
-                  'Welcome, ${textUserRecord.displayName}',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.inter(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        color: Colors.black,
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
-                );
-              },
-            ),
           ].divide(SizedBox(height: 4.0)),
         ),
         actions: [
@@ -174,6 +134,72 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                15.0, 0.0, 0.0, 0.0),
+                            child: StreamBuilder<UserRecord>(
+                              stream:
+                                  UserRecord.getDocument(currentUserReference!),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                final textUserRecord = snapshot.data!;
+
+                                return Text(
+                                  'Welcome, ${textUserRecord.displayName}',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.black,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),

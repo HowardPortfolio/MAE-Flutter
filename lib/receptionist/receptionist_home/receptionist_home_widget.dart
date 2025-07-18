@@ -279,26 +279,6 @@ class _ReceptionistHomeWidgetState extends State<ReceptionistHomeWidget>
                       );
                     },
                   ),
-                  Text(
-                    'Receptionist Home',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                          color: Colors.black,
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                  ),
                 ].divide(SizedBox(height: 4.0)),
               ),
               actions: [

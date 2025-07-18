@@ -172,6 +172,7 @@ class _ReceptionistManageWidgetState extends State<ReceptionistManageWidget>
                             return SingleChildScrollView(
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: List.generate(
                                     columnBookingRecordList.length,
                                     (columnIndex) {
@@ -190,79 +191,123 @@ class _ReceptionistManageWidgetState extends State<ReceptionistManageWidget>
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 0.0, 0.0, 0.0),
-                                              child: SingleChildScrollView(
-                                                primary: false,
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      columnBookingRecord
-                                                          .roomID,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyLarge
-                                                          .override(
-                                                            font: GoogleFonts
-                                                                .plusJakartaSans(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  columnBookingRecord.roomID,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        font: GoogleFonts
+                                                            .plusJakartaSans(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLarge
+                                                                  .fontStyle,
+                                                        ),
+                                                        color: Colors.black,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .fontStyle,
+                                                      ),
+                                                ),
+                                                Expanded(
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        columnBookingRecord
+                                                            .email,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .labelSmall
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .plusJakartaSans(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelSmall
+                                                                    .fontStyle,
+                                                              ),
+                                                              color: Color(
+                                                                  0xFF606A85),
+                                                              fontSize: 12.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w600,
+                                                                      .w500,
                                                               fontStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyLarge
+                                                                      .labelSmall
                                                                       .fontStyle,
                                                             ),
-                                                            color: Colors.black,
-                                                            fontSize: 16.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyLarge
-                                                                    .fontStyle,
-                                                          ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  4.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Row(
+                                                      ),
+                                                      Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
                                                         children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        12.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              columnBookingRecord
-                                                                  .email,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelSmall
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .plusJakartaSans(
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .timer_sharp,
+                                                                color: Color(
+                                                                    0xFF606A85),
+                                                                size: 16.0,
+                                                              ),
+                                                              Text(
+                                                                dateTimeFormat(
+                                                                    "EEEE, dd/MM/yyyy",
+                                                                    columnBookingRecord
+                                                                        .bookingDate!),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelSmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .plusJakartaSans(
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .labelSmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      color: Color(
+                                                                          0xFF606A85),
+                                                                      fontSize:
+                                                                          10.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
@@ -271,12 +316,18 @@ class _ReceptionistManageWidgetState extends State<ReceptionistManageWidget>
                                                                           .labelSmall
                                                                           .fontStyle,
                                                                     ),
-                                                                    color: Color(
-                                                                        0xFF606A85),
-                                                                    fontSize:
-                                                                        10.0,
-                                                                    letterSpacing:
-                                                                        0.0,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Text(
+                                                            columnBookingRecord
+                                                                .bookingTime,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .plusJakartaSans(
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -285,332 +336,245 @@ class _ReceptionistManageWidgetState extends State<ReceptionistManageWidget>
                                                                         .labelSmall
                                                                         .fontStyle,
                                                                   ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        4.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              Icons.timer_sharp,
-                                                              color: Color(
-                                                                  0xFF606A85),
-                                                              size: 16.0,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        16.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              dateTimeFormat(
-                                                                  "EEEE, dd/MM/yyyy",
-                                                                  columnBookingRecord
-                                                                      .bookingDate!),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelSmall
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .plusJakartaSans(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .labelSmall
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    color: Color(
-                                                                        0xFF606A85),
-                                                                    fontSize:
-                                                                        10.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelSmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              columnBookingRecord
-                                                                  .bookingTime,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelSmall
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .plusJakartaSans(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .labelSmall
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    color: Color(
-                                                                        0xFF606A85),
-                                                                    fontSize:
-                                                                        10.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelSmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
+                                                                  color: Color(
+                                                                      0xFF606A85),
+                                                                  fontSize:
+                                                                      10.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelSmall
+                                                                      .fontStyle,
+                                                                ),
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
                                                     Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
                                                       children: [
-                                                        Align(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  -1.0, 0.0),
-                                                          child: Row(
+                                                        InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              EditBookingWidget
+                                                                  .routeName,
+                                                              queryParameters: {
+                                                                'bookingid':
+                                                                    serializeParam(
+                                                                  columnBookingRecord
+                                                                      .reference,
+                                                                  ParamType
+                                                                      .DocumentReference,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          },
+                                                          child: Text(
+                                                            'Modify Booking',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .plusJakartaSans(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  color: Color(
+                                                                      0xFF6F61EF),
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    if (columnBookingRecord
+                                                            .status ==
+                                                        'Pending')
+                                                      StreamBuilder<
+                                                          BookingRecord>(
+                                                        stream: BookingRecord
+                                                            .getDocument(
+                                                                columnBookingRecord
+                                                                    .reference),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+
+                                                          final rowBookingRecord =
+                                                              snapshot.data!;
+
+                                                          return Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
                                                                     .max,
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .start,
+                                                                    .center,
                                                             children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            12.0,
-                                                                            0.0),
-                                                                child: InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    context
-                                                                        .pushNamed(
-                                                                      ReceptionistEditWidget
-                                                                          .routeName,
-                                                                      queryParameters:
-                                                                          {
-                                                                        'bookingid':
-                                                                            serializeParam(
-                                                                          columnBookingRecord
-                                                                              .reference,
-                                                                          ParamType
-                                                                              .DocumentReference,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                    );
-                                                                  },
-                                                                  child: Text(
-                                                                    'Modify Booking',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelSmall
-                                                                        .override(
-                                                                          font:
-                                                                              GoogleFonts.plusJakartaSans(
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).labelSmall.fontStyle,
-                                                                          ),
-                                                                          color:
-                                                                              Color(0xFF6F61EF),
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              0.0,
+                                                              InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  await columnBookingRecord
+                                                                      .reference
+                                                                      .update(
+                                                                          createBookingRecordData(
+                                                                    status:
+                                                                        'Accepted',
+                                                                  ));
+                                                                },
+                                                                child: Text(
+                                                                  'Accept',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelSmall
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .plusJakartaSans(
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           fontStyle: FlutterFlowTheme.of(context)
                                                                               .labelSmall
                                                                               .fontStyle,
                                                                         ),
-                                                                  ),
+                                                                        color: Color(
+                                                                            0xFF0026FF),
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .labelSmall
+                                                                            .fontStyle,
+                                                                      ),
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        if (columnBookingRecord
-                                                                .status ==
-                                                            'Pending')
-                                                          Flexible(
-                                                            child: StreamBuilder<
-                                                                BookingRecord>(
-                                                              stream: BookingRecord
-                                                                  .getDocument(
-                                                                      columnBookingRecord
-                                                                          .reference),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width:
-                                                                          50.0,
-                                                                      height:
-                                                                          50.0,
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        valueColor:
-                                                                            AlwaysStoppedAnimation<Color>(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .primary,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-
-                                                                final rowBookingRecord =
-                                                                    snapshot
-                                                                        .data!;
-
-                                                                return Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          8.0,
-                                                                          12.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {
-                                                                          await columnBookingRecord
-                                                                              .reference
-                                                                              .update(createBookingRecordData(
-                                                                            status:
-                                                                                'Accepted',
-                                                                          ));
-                                                                        },
-                                                                        child:
-                                                                            Text(
-                                                                          'Accept',
-                                                                          style: FlutterFlowTheme.of(context)
+                                                              InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  await columnBookingRecord
+                                                                      .reference
+                                                                      .update(
+                                                                          createBookingRecordData(
+                                                                    status:
+                                                                        'Declined',
+                                                                  ));
+                                                                },
+                                                                child: Text(
+                                                                  'Decline',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelSmall
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .plusJakartaSans(
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
                                                                               .labelSmall
-                                                                              .override(
-                                                                                font: GoogleFonts.plusJakartaSans(
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
-                                                                                ),
-                                                                                color: Color(0xFF0026FF),
-                                                                                fontSize: 16.0,
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
-                                                                              ),
+                                                                              .fontStyle,
                                                                         ),
+                                                                        color: Color(
+                                                                            0xFFFF0000),
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .labelSmall
+                                                                            .fontStyle,
                                                                       ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          8.0,
-                                                                          12.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {
-                                                                          await columnBookingRecord
-                                                                              .reference
-                                                                              .update(createBookingRecordData(
-                                                                            status:
-                                                                                'Declined',
-                                                                          ));
-                                                                        },
-                                                                        child:
-                                                                            Text(
-                                                                          'Decline',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .labelSmall
-                                                                              .override(
-                                                                                font: GoogleFonts.plusJakartaSans(
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
-                                                                                ),
-                                                                                color: Color(0xFFFF0000),
-                                                                                fontSize: 16.0,
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                      ],
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(height: 4.0)),
+                                                                ),
+                                                              ),
+                                                            ].divide(SizedBox(
+                                                                width: 10.0)),
+                                                          );
+                                                        },
+                                                      ),
+                                                  ],
                                                 ),
-                                              ),
+                                              ].divide(SizedBox(height: 4.0)),
                                             ),
                                           ),
                                         ],

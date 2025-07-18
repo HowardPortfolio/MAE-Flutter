@@ -367,36 +367,80 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                              child: Text(
-                                                'Select a time',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .headlineSmall
-                                                    .override(
-                                                      font: GoogleFonts.outfit(
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          4.0, 0.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Select a time',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .outfit(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color:
+                                                              Color(0xFF14181B),
+                                                          fontSize: 24.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  dateTimeFormat(
+                                                      "EEEE, dd/MM/yyyy",
+                                                      _model
+                                                          .calendarSelectedDay!
+                                                          .start),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodySmall
+                                                      .override(
+                                                        font: GoogleFonts
+                                                            .plusJakartaSans(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodySmall
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            Color(0xFF14181B),
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FontWeight.w500,
+                                                            FontWeight.normal,
                                                         fontStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .headlineSmall
+                                                                .bodySmall
                                                                 .fontStyle,
                                                       ),
-                                                      color: Color(0xFF14181B),
-                                                      fontSize: 24.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .headlineSmall
-                                                              .fontStyle,
-                                                    ),
-                                              ),
+                                                ),
+                                              ].divide(SizedBox(width: 40.0)),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -466,6 +510,8 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
+                                                                  color: Colors
+                                                                      .black,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight: FlutterFlowTheme.of(
@@ -486,12 +532,12 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                               .secondaryText,
                                                           size: 24.0,
                                                         ),
-                                                        fillColor: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
+                                                        fillColor: Colors.white,
                                                         elevation: 2.0,
                                                         borderColor:
-                                                            Colors.transparent,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
                                                         borderWidth: 0.0,
                                                         borderRadius: 8.0,
                                                         margin:
@@ -507,36 +553,6 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                         isMultiSelect: false,
                                                       ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    'Wed, 03/08/2022',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodySmall
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .plusJakartaSans(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                          ),
-                                                          color:
-                                                              Color(0xFF14181B),
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmall
-                                                                  .fontStyle,
-                                                        ),
                                                   ),
                                                 ],
                                               ),
@@ -675,6 +691,8 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
+                                                                  color: Color(
+                                                                      0xFF5A778C),
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight: FlutterFlowTheme.of(
@@ -695,12 +713,12 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                               .secondaryText,
                                                           size: 24.0,
                                                         ),
-                                                        fillColor: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
+                                                        fillColor: Colors.white,
                                                         elevation: 2.0,
                                                         borderColor:
-                                                            Colors.transparent,
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
                                                         borderWidth: 0.0,
                                                         borderRadius: 8.0,
                                                         margin:
@@ -878,6 +896,8 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .black,
                                                                       letterSpacing:
                                                                           0.0,
                                                                       fontWeight: FlutterFlowTheme.of(
@@ -899,12 +919,13 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                                   .secondaryText,
                                                               size: 24.0,
                                                             ),
-                                                            fillColor: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
+                                                            fillColor:
+                                                                Colors.white,
                                                             elevation: 2.0,
-                                                            borderColor: Colors
-                                                                .transparent,
+                                                            borderColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
                                                             borderWidth: 0.0,
                                                             borderRadius: 8.0,
                                                             margin:
@@ -957,6 +978,7 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                             text: columnBookingRecord.email,
                                           ),
                                           focusNode: _model.textFieldFocusNode,
+                                          readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Booking Username',
@@ -985,7 +1007,6 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                               .labelMedium
                                                               .fontStyle,
                                                     ),
-                                            hintText: 'Howard',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -1000,7 +1021,7 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
-                                                      color: Color(0xFF57636C),
+                                                      color: Colors.black,
                                                       fontSize: 14.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:

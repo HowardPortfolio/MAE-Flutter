@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
@@ -935,14 +934,7 @@ class _ReceptionistReservationWidgetState
                                               ),
                                               child: StreamBuilder<
                                                   List<UserRecord>>(
-                                                stream: queryUserRecord(
-                                                  queryBuilder: (userRecord) =>
-                                                      userRecord.whereNotIn(
-                                                          'email', [
-                                                    'admin@aproom.com',
-                                                    'rec@aproom.com'
-                                                  ]),
-                                                ),
+                                                stream: queryUserRecord(),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
                                                   if (!snapshot.hasData) {
@@ -965,11 +957,7 @@ class _ReceptionistReservationWidgetState
                                                   }
                                                   List<UserRecord>
                                                       userDropDownUserRecordList =
-                                                      snapshot.data!
-                                                          .where((u) =>
-                                                              u.uid !=
-                                                              currentUserUid)
-                                                          .toList();
+                                                      snapshot.data!;
 
                                                   return FlutterFlowDropDown<
                                                       String>(

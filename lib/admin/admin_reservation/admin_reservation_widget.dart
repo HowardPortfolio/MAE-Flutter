@@ -1,5 +1,4 @@
 import '/admin/admin_navigation/admin_navigation_widget.dart';
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
@@ -932,14 +931,7 @@ class _AdminReservationWidgetState extends State<AdminReservationWidget>
                                               ),
                                               child: StreamBuilder<
                                                   List<UserRecord>>(
-                                                stream: queryUserRecord(
-                                                  queryBuilder: (userRecord) =>
-                                                      userRecord.where(
-                                                    'email',
-                                                    isNotEqualTo:
-                                                        'rec@aproom.com',
-                                                  ),
-                                                ),
+                                                stream: queryUserRecord(),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
                                                   if (!snapshot.hasData) {
@@ -962,11 +954,7 @@ class _AdminReservationWidgetState extends State<AdminReservationWidget>
                                                   }
                                                   List<UserRecord>
                                                       userDropDownUserRecordList =
-                                                      snapshot.data!
-                                                          .where((u) =>
-                                                              u.uid !=
-                                                              currentUserUid)
-                                                          .toList();
+                                                      snapshot.data!;
 
                                                   return FlutterFlowDropDown<
                                                       String>(
