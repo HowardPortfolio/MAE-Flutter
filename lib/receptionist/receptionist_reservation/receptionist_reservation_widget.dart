@@ -1161,18 +1161,44 @@ class _ReceptionistReservationWidgetState
                                     if (_model.calendarSelectedDay!.start >=
                                         functions.getCurrentDate()!) {
                                       if (buttonBookingRecordList.length == 0) {
-                                        await BookingRecord.collection
-                                            .doc()
+                                        var bookingRecordReference =
+                                            BookingRecord.collection.doc();
+                                        await bookingRecordReference
                                             .set(createBookingRecordData(
-                                              bookingDate: _model
-                                                  .calendarSelectedDay?.start,
-                                              pax: _model.paxDropDownValue,
-                                              bookingTime:
-                                                  _model.timeDropDownValue,
-                                              email: _model.userDropDownValue,
-                                              roomID: _model.roomDropDownValue,
-                                              status: 'Pending',
-                                            ));
+                                          bookingDate:
+                                              _model.calendarSelectedDay?.start,
+                                          pax: _model.paxDropDownValue,
+                                          bookingTime: _model.timeDropDownValue,
+                                          email: _model.userDropDownValue,
+                                          roomID: _model.roomDropDownValue,
+                                          status: 'Pending',
+                                        ));
+                                        _model.newBooking =
+                                            BookingRecord.getDocumentFromData(
+                                                createBookingRecordData(
+                                                  bookingDate: _model
+                                                      .calendarSelectedDay
+                                                      ?.start,
+                                                  pax: _model.paxDropDownValue,
+                                                  bookingTime:
+                                                      _model.timeDropDownValue,
+                                                  email:
+                                                      _model.userDropDownValue,
+                                                  roomID:
+                                                      _model.roomDropDownValue,
+                                                  status: 'Pending',
+                                                ),
+                                                bookingRecordReference);
+
+                                        context.pushNamed(
+                                          ReceptionistConfirmWidget.routeName,
+                                          queryParameters: {
+                                            'bookingid': serializeParam(
+                                              _model.newBooking?.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -1305,6 +1331,8 @@ class _ReceptionistReservationWidgetState
                                       ),
                                     );
                                   }
+
+                                  safeSetState(() {});
                                 },
                                 text: 'Book',
                                 options: FFButtonOptions(

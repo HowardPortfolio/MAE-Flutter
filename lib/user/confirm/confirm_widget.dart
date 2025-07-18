@@ -416,7 +416,7 @@ class _ConfirmWidgetState extends State<ConfirmWidget>
                                     8.0, 0.0, 0.0, 16.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    context.pushNamed(HomeWidget.routeName);
+                                    context.safePop();
                                   },
                                   text: 'Continue',
                                   options: FFButtonOptions(

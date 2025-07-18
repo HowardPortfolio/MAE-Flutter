@@ -1125,6 +1125,7 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                           pax: _model.dropDownValue2,
                                           bookingDate:
                                               _model.calendarSelectedDay?.start,
+                                          roomID: _model.dropDownValue3,
                                         ));
                                         context.safePop();
                                       } else {
@@ -1226,7 +1227,7 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                       title: Text(
                                                           'Delete Booking'),
                                                       content: Text(
-                                                          'Room ID: ${columnBookingRecord.roomID}\\nTime: ${columnBookingRecord.bookingTime}\\nEmail: ${columnBookingRecord.email}'),
+                                                          'Booking ID: ${widget.bookingid?.id}'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
@@ -1248,7 +1249,12 @@ class _EditBookingWidgetState extends State<EditBookingWidget>
                                                   },
                                                 ) ??
                                                 false;
-                                        await widget.bookingid!.delete();
+                                        if (confirmDialogResponse) {
+                                          await widget.bookingid!.delete();
+                                        } else {
+                                          return;
+                                        }
+
                                         context.safePop();
                                       },
                                       text: 'Delete Booking',

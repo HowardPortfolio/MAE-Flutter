@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
@@ -25,6 +26,8 @@ class ReceptionistReservationModel
   // State field(s) for UserDropDown widget.
   String? userDropDownValue;
   FormFieldController<String>? userDropDownValueController;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  BookingRecord? newBooking;
   // Model for ReceptionistNavigation component.
   late ReceptionistNavigationModel receptionistNavigationModel;
 

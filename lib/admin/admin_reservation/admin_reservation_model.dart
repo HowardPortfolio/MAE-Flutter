@@ -1,4 +1,5 @@
 import '/admin/admin_navigation/admin_navigation_widget.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
@@ -23,6 +24,8 @@ class AdminReservationModel extends FlutterFlowModel<AdminReservationWidget> {
   // State field(s) for UserDropDown widget.
   String? userDropDownValue;
   FormFieldController<String>? userDropDownValueController;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  BookingRecord? newBooking;
   // Model for AdminNavigation component.
   late AdminNavigationModel adminNavigationModel;
 
