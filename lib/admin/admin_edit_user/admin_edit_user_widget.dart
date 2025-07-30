@@ -514,30 +514,158 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget>
                       ),
                       FFButtonWidget(
                         onPressed: () async {
-                          await widget.userid!.update(createUserRecordData(
-                            displayName: _model.textController1.text,
-                          ));
-                          await authManager.updatePassword(
-                            newPassword: _model.textController2.text,
-                            context: context,
-                          );
-                          safeSetState(() {});
-
-                          context.safePop();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Update Succesful',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                          if ((_model.textController1.text == '') &&
+                              (_model.textController2.text == '') &&
+                              (_model.textController3.text == '')) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'No changes have been made!',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
                                 ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).error,
                               ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).success,
-                            ),
-                          );
+                            );
+                          } else {
+                            if (((_model.textFieldFocusNode1?.hasFocus ??
+                                        false) !=
+                                    null) &&
+                                (_model.textController2.text != '') &&
+                                (_model.textController3.text != '')) {
+                              if (_model.textController2.text ==
+                                  _model.textController3.text) {
+                                await authManager.updatePassword(
+                                  newPassword: _model.textController2.text,
+                                  context: context,
+                                );
+                                safeSetState(() {});
+
+                                context.safePop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Password Update Succesful!',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).success,
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Confirm password does not match!',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).error,
+                                  ),
+                                );
+                              }
+                            } else {
+                              if ((_model.textController1.text != '') &&
+                                  (_model.textController2.text != '') &&
+                                  (_model.textController3.text != '')) {
+                                if (_model.textController2.text ==
+                                    _model.textController3.text) {
+                                  await widget.userid!
+                                      .update(createUserRecordData(
+                                    displayName: _model.textController1.text,
+                                  ));
+                                  await authManager.updatePassword(
+                                    newPassword: _model.textController2.text,
+                                    context: context,
+                                  );
+                                  safeSetState(() {});
+
+                                  context.safePop();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Username & Password Update Succesful',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).success,
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Confirm password does not match!',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).error,
+                                    ),
+                                  );
+                                }
+                              } else {
+                                if ((_model.textController1.text != '') &&
+                                    ((_model.textController2.text ==
+                                                '') ||
+                                        (_model.textController3.text ==
+                                                ''))) {
+                                  await widget.userid!
+                                      .update(createUserRecordData(
+                                    displayName: _model.textController1.text,
+                                  ));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Username Update Succesful!',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).success,
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Unknown Error: Make sure all fields have valid information!',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).error,
+                                    ),
+                                  );
+                                }
+                              }
+                            }
+                          }
                         },
                         text: 'Save Changes',
                         options: FFButtonOptions(

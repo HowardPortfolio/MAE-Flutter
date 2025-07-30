@@ -17,13 +17,11 @@ int? getCurrentHour() {
 }
 
 DateTime? getCurrentDate() {
-  // Get current UTC time and convert it to UTC+8
-  DateTime now = DateTime.now().toUtc().add(Duration(hours: 8));
+  // Get current UTC time and convert it to Malaysia/Singapore time (UTC+8)
+  final utcPlus8 = DateTime.now().toUtc().add(const Duration(hours: 8));
 
-  // Set the time to 00:00:00 at UTC+8
-  DateTime dateAtMidnight = DateTime(now.year, now.month, now.day);
-
-  return dateAtMidnight;
+  // Return only the date portion (midnight of today in UTC+8)
+  return DateTime(utcPlus8.year, utcPlus8.month, utcPlus8.day);
 }
 
 String? getEmailDomain(String email) {

@@ -426,8 +426,7 @@ class _ReservationWidgetState extends State<ReservationWidget>
                                                   '3:00 PM - 4:00 PM',
                                                   '4:00 PM - 5:00 PM',
                                                   '5:00 PM - 6:00 PM',
-                                                  '6:00 PM - 7:00 PM',
-                                                  '12:00 AM - 1:00 AM'
+                                                  '6:00 PM - 7:00 PM'
                                                 ],
                                                 onChanged: (val) =>
                                                     safeSetState(() => _model
