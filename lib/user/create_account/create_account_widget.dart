@@ -658,87 +658,144 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onDoubleTap: () async {
-                                        await Future.wait([]);
-                                      },
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          var _shouldSetState = false;
-                                          if ((_model.passwordTextController.text != '') &&
-                                              (_model.passwordTextController
-                                                      .text ==
-                                                  _model
-                                                      .passwordConfirmTextController
-                                                      .text) &&
-                                              (_model.usernameTextController
-                                                          .text !=
-                                                      '') &&
-                                              ((functions.getEmailDomain(_model
-                                                          .emailAddressTextController
-                                                          .text) !=
-                                                      'admin.aproom.com') &&
-                                                  (functions.getEmailDomain(_model
-                                                          .emailAddressTextController
-                                                          .text) !=
-                                                      'rec@aproom.com'))) {
-                                            GoRouter.of(context)
-                                                .prepareAuthEvent();
-                                            if (_model.passwordTextController
-                                                    .text !=
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        var _shouldSetState = false;
+                                        if ((_model.passwordTextController.text != '') &&
+                                            (_model.passwordTextController
+                                                    .text ==
                                                 _model
                                                     .passwordConfirmTextController
-                                                    .text) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Passwords don\'t match!',
-                                                  ),
-                                                ),
-                                              );
-                                              return;
-                                            }
-
-                                            final user = await authManager
-                                                .createAccountWithEmail(
-                                              context,
-                                              _model.emailAddressTextController
-                                                  .text,
+                                                    .text) &&
+                                            (_model.usernameTextController
+                                                        .text !=
+                                                    '') &&
+                                            ((functions.getEmailDomain(_model
+                                                        .emailAddressTextController
+                                                        .text) !=
+                                                    'admin.aproom.com') &&
+                                                (functions.getEmailDomain(_model
+                                                        .emailAddressTextController
+                                                        .text) !=
+                                                    'rec.aproom.com'))) {
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
+                                          if (_model.passwordTextController
+                                                  .text !=
                                               _model
-                                                  .passwordTextController.text,
-                                            );
-                                            if (user == null) {
-                                              return;
-                                            }
-
-                                            _model.newuser =
-                                                await queryUserRecordOnce(
-                                              queryBuilder: (userRecord) =>
-                                                  userRecord.where(
-                                                'email',
-                                                isEqualTo: _model
-                                                    .emailAddressTextController
-                                                    .text,
-                                              ),
-                                              singleRecord: true,
-                                            ).then((s) => s.firstOrNull);
-                                            _shouldSetState = true;
-
-                                            await _model.newuser!.reference
-                                                .update(createUserRecordData(
-                                              displayName: _model
-                                                  .usernameTextController.text,
-                                            ));
+                                                  .passwordConfirmTextController
+                                                  .text) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
                                                 content: Text(
-                                                  'User Account Created',
+                                                  'Passwords don\'t match!',
+                                                ),
+                                              ),
+                                            );
+                                            return;
+                                          }
+
+                                          final user = await authManager
+                                              .createAccountWithEmail(
+                                            context,
+                                            _model.emailAddressTextController
+                                                .text,
+                                            _model.passwordTextController.text,
+                                          );
+                                          if (user == null) {
+                                            return;
+                                          }
+
+                                          _model.newuser =
+                                              await queryUserRecordOnce(
+                                            queryBuilder: (userRecord) =>
+                                                userRecord.where(
+                                              'email',
+                                              isEqualTo: _model
+                                                  .emailAddressTextController
+                                                  .text,
+                                            ),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+                                          _shouldSetState = true;
+
+                                          await _model.newuser!.reference
+                                              .update(createUserRecordData(
+                                            displayName: _model
+                                                .usernameTextController.text,
+                                          ));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'User Account Created',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .interTight(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                          if (currentJwtToken != '') {
+                                            if (Navigator.of(context)
+                                                .canPop()) {
+                                              context.pop();
+                                            }
+                                            context.pushNamedAuth(
+                                                AdminAddUserWidget.routeName,
+                                                context.mounted);
+                                          } else {
+                                            if (Navigator.of(context)
+                                                .canPop()) {
+                                              context.pop();
+                                            }
+                                            context.pushNamedAuth(
+                                                LoginWidget.routeName,
+                                                context.mounted);
+                                          }
+                                        } else {
+                                          if (_model.usernameTextController
+                                                      .text ==
+                                                  '') {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Invalid Username!',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .titleSmall
@@ -777,22 +834,26 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondary,
+                                                        .error,
                                               ),
                                             );
-
-                                            context.pushNamedAuth(
-                                                LoginWidget.routeName,
-                                                context.mounted);
                                           } else {
-                                            if (_model.usernameTextController
-                                                        .text ==
-                                                    '') {
+                                            if ((_model.emailAddressTextController
+                                                            .text ==
+                                                        '') ||
+                                                (functions.getEmailDomain(_model
+                                                        .emailAddressTextController
+                                                        .text) ==
+                                                    'admin.aproom.com') ||
+                                                (functions.getEmailDomain(_model
+                                                        .emailAddressTextController
+                                                        .text) ==
+                                                    'rec.aproom.com')) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 SnackBar(
                                                   content: Text(
-                                                    'Invalid Username!',
+                                                    'Invalid email/ Domain not allowed!',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .titleSmall
@@ -832,25 +893,32 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .error,
+                                                  action: SnackBarAction(
+                                                    label: '',
+                                                    onPressed: () async {
+                                                      safeSetState(() {
+                                                        _model
+                                                            .emailAddressTextController
+                                                            ?.clear();
+                                                      });
+                                                    },
+                                                  ),
                                                 ),
                                               );
                                             } else {
-                                              if ((_model.emailAddressTextController
+                                              if ((_model.passwordTextController
+                                                          .text !=
+                                                      _model
+                                                          .passwordConfirmTextController
+                                                          .text) ||
+                                                  (_model.passwordConfirmTextController
                                                               .text ==
-                                                          '') ||
-                                                  (functions.getEmailDomain(_model
-                                                          .emailAddressTextController
-                                                          .text) ==
-                                                      'admin.aproom.com') ||
-                                                  (functions.getEmailDomain(_model
-                                                          .emailAddressTextController
-                                                          .text) ==
-                                                      'rec.aproom.com')) {
+                                                          '')) {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(
                                                     content: Text(
-                                                      'Invalid email/ Domain not allowed!',
+                                                      'Invalid password!',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -893,7 +961,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                                       onPressed: () async {
                                                         safeSetState(() {
                                                           _model
-                                                              .emailAddressTextController
+                                                              .passwordConfirmTextController
                                                               ?.clear();
                                                         });
                                                       },
@@ -901,126 +969,55 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                                   ),
                                                 );
                                               } else {
-                                                if ((_model.passwordTextController
-                                                            .text !=
-                                                        _model
-                                                            .passwordConfirmTextController
-                                                            .text) ||
-                                                    (valueOrDefault(
-                                                                currentUserDocument
-                                                                    ?.password,
-                                                                '') ==
-                                                            '')) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Invalid password!',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .interTight(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleSmall
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleSmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontStyle,
-                                                                ),
-                                                      ),
-                                                      duration: Duration(
-                                                          milliseconds: 4000),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      action: SnackBarAction(
-                                                        label: '',
-                                                        onPressed: () async {
-                                                          safeSetState(() {
-                                                            _model
-                                                                .passwordConfirmTextController
-                                                                ?.clear();
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  if (_shouldSetState)
-                                                    safeSetState(() {});
-                                                  return;
-                                                }
+                                                if (_shouldSetState)
+                                                  safeSetState(() {});
+                                                return;
                                               }
                                             }
                                           }
+                                        }
 
-                                          if (_shouldSetState)
-                                            safeSetState(() {});
-                                        },
-                                        text: 'Create Account',
-                                        options: FFButtonOptions(
-                                          width: 370.0,
-                                          height: 44.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: Color(0xFF1B63FE),
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .titleSmall
-                                              .override(
-                                                font:
-                                                    GoogleFonts.plusJakartaSans(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .fontStyle,
-                                                ),
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
+                                      },
+                                      text: 'Create Account',
+                                      options: FFButtonOptions(
+                                        width: 370.0,
+                                        height: 44.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: Color(0xFF1B63FE),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              font: GoogleFonts.plusJakartaSans(
                                                 fontWeight: FontWeight.w500,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
                                                         .fontStyle,
                                               ),
-                                          elevation: 3.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          hoverColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                        elevation: 3.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
                                         ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        hoverColor: FlutterFlowTheme.of(context)
+                                            .primary,
                                       ),
                                     ),
                                   ),

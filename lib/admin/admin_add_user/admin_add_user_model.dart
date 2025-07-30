@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 class AdminAddUserModel extends FlutterFlowModel<AdminAddUserWidget> {
   ///  Local state fields for this page.
 
-  String? loginUser;
+  String? useremail;
 
-  String? userPass;
+  String? userpass;
 
   ///  State fields for stateful widgets in this page.
 

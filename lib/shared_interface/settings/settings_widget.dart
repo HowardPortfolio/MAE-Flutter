@@ -708,6 +708,9 @@ class _SettingsWidgetState extends State<SettingsWidget>
                         await authManager.signOut();
                         GoRouter.of(context).clearRedirectLocation();
 
+                        FFAppState().loggedInUser = '';
+                        FFAppState().loggedInUserPass = '';
+
                         context.goNamedAuth(
                             OnBoardingWidget.routeName, context.mounted);
                       },

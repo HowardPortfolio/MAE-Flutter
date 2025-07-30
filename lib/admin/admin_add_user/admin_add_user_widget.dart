@@ -9,7 +9,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_add_user_model.dart';
@@ -37,11 +36,6 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminAddUserModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.loginUser = currentUserEmail;
-    });
 
     _model.usernameTextController ??= TextEditingController();
     _model.usernameFocusNode ??= FocusNode();
@@ -253,6 +247,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                             .bodyMedium
                                             .fontStyle,
                                       ),
+                                  keyboardType: TextInputType.name,
                                   validator: _model
                                       .usernameTextControllerValidator
                                       .asValidator(context),
@@ -362,6 +357,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                             .bodyMedium
                                             .fontStyle,
                                       ),
+                                  keyboardType: TextInputType.emailAddress,
                                   validator: _model.emailTextControllerValidator
                                       .asValidator(context),
                                 ),
@@ -484,6 +480,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                             .bodyMedium
                                             .fontStyle,
                                       ),
+                                  keyboardType: TextInputType.visiblePassword,
                                   validator: _model
                                       .passwordTextControllerValidator
                                       .asValidator(context),
@@ -608,6 +605,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                             .bodyMedium
                                             .fontStyle,
                                       ),
+                                  keyboardType: TextInputType.visiblePassword,
                                   validator: _model
                                       .confirmPasswordTextControllerValidator
                                       .asValidator(context),
@@ -616,165 +614,66 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  StreamBuilder<List<UserRecord>>(
-                    stream: queryUserRecord(
-                      queryBuilder: (userRecord) => userRecord.where(
-                        'email',
-                        isEqualTo: _model.emailTextController.text,
-                      ),
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      List<UserRecord> buttonUserRecordList = snapshot.data!;
-                      final buttonUserRecord = buttonUserRecordList.isNotEmpty
-                          ? buttonUserRecordList.first
-                          : null;
-
-                      return FFButtonWidget(
-                        onPressed: () async {
-                          var _shouldSetState = false;
-                          if ((_model.passwordTextController.text != '') &&
-                              (_model.passwordTextController.text ==
-                                  _model.confirmPasswordTextController.text) &&
-                              (_model.usernameTextController.text != '')) {
-                            GoRouter.of(context).prepareAuthEvent();
-                            if (_model.passwordTextController.text !=
-                                _model.confirmPasswordTextController.text) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Passwords don\'t match!',
-                                  ),
-                                ),
-                              );
-                              return;
-                            }
-
-                            final user =
-                                await authManager.createAccountWithEmail(
-                              context,
-                              _model.emailTextController.text,
-                              _model.passwordTextController.text,
-                            );
-                            if (user == null) {
-                              return;
-                            }
-
-                            _model.newuser = await queryUserRecordOnce(
-                              queryBuilder: (userRecord) => userRecord.where(
-                                'email',
-                                isEqualTo: _model.emailTextController.text,
-                              ),
-                              singleRecord: true,
-                            ).then((s) => s.firstOrNull);
-                            _shouldSetState = true;
-
-                            await _model.newuser!.reference
-                                .update(createUserRecordData(
-                              displayName: _model.usernameTextController.text,
-                            ));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'User Account Created',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        font: GoogleFonts.interTight(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
-                              ),
-                            );
-
-                            context.pushNamedAuth(
-                                LoginWidget.routeName, context.mounted);
-                          } else {
-                            if (_model.usernameTextController.text == '') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Invalid Username!',
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          font: GoogleFonts.interTight(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontStyle,
-                                        ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).error,
-                                ),
-                              );
-                            } else {
-                              if ((_model.emailTextController.text == '') ||
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 16.0, 0.0, 0.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              var _shouldSetState = false;
+                              if ((_model.passwordTextController.text != '') &&
+                                  (_model.passwordTextController.text ==
+                                      _model.confirmPasswordTextController
+                                          .text) &&
+                                  (_model.usernameTextController.text !=
+                                          '') &&
                                   ((functions.getEmailDomain(_model
-                                              .emailTextController.text) ==
-                                          'admin.aproom.com') ||
+                                              .emailTextController.text) !=
+                                          'admin.aproom.com') &&
                                       (functions.getEmailDomain(_model
-                                              .emailTextController.text) ==
-                                          'rec@aproom.com'))) {
+                                              .emailTextController.text) !=
+                                          'rec.aproom.com'))) {
+                                GoRouter.of(context).prepareAuthEvent();
+                                if (_model.passwordTextController.text !=
+                                    _model.confirmPasswordTextController.text) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Passwords don\'t match!',
+                                      ),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                final user =
+                                    await authManager.createAccountWithEmail(
+                                  context,
+                                  _model.emailTextController.text,
+                                  _model.passwordTextController.text,
+                                );
+                                if (user == null) {
+                                  return;
+                                }
+
+                                _model.newuser = await queryUserRecordOnce(
+                                  queryBuilder: (userRecord) =>
+                                      userRecord.where(
+                                    'email',
+                                    isEqualTo: _model.emailTextController.text,
+                                  ),
+                                  singleRecord: true,
+                                ).then((s) => s.firstOrNull);
+                                _shouldSetState = true;
+
+                                await _model.newuser!.reference
+                                    .update(createUserRecordData(
+                                  displayName:
+                                      _model.usernameTextController.text,
+                                ));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'Invalid email',
+                                      'User Account Created',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
@@ -803,19 +702,19 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                     ),
                                     duration: Duration(milliseconds: 4000),
                                     backgroundColor:
-                                        FlutterFlowTheme.of(context).error,
+                                        FlutterFlowTheme.of(context).secondary,
                                   ),
                                 );
+
+                                context.pushNamedAuth(
+                                    AdminManageUserWidget.routeName,
+                                    context.mounted);
                               } else {
-                                if ((_model.passwordTextController.text !=
-                                        _model.confirmPasswordTextController
-                                            .text) ||
-                                    (_model.passwordTextController.text ==
-                                            '')) {
+                                if (_model.usernameTextController.text == '') {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Invalid password!',
+                                        'Invalid Username!',
                                         style: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
@@ -849,26 +748,128 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                     ),
                                   );
                                 } else {
-                                  if (_shouldSetState) safeSetState(() {});
-                                  return;
+                                  if ((_model.emailTextController.text ==
+                                              '') ||
+                                      (functions.getEmailDomain(_model
+                                              .emailTextController.text) ==
+                                          'admin.aproom.com') ||
+                                      (functions.getEmailDomain(_model
+                                              .emailTextController.text) ==
+                                          'rec.aproom.com')) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Invalid email/ Domain not allowed!',
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleSmall
+                                              .override(
+                                                font: GoogleFonts.interTight(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
+                                    );
+                                  } else {
+                                    if ((_model.passwordTextController.text !=
+                                            _model.confirmPasswordTextController
+                                                .text) ||
+                                        (/* NOT RECOMMENDED */ _model
+                                                .confirmPasswordTextController
+                                                .text ==
+                                            'true')) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Invalid password!',
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.interTight(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                    } else {
+                                      if (_shouldSetState) safeSetState(() {});
+                                      return;
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                          }
 
-                          if (_shouldSetState) safeSetState(() {});
-                        },
-                        text: 'Create User',
-                        options: FFButtonOptions(
-                          width: 270.0,
-                          height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF1B63FE),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
+                                if (_shouldSetState) safeSetState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) safeSetState(() {});
+                            },
+                            text: 'Create Account',
+                            options: FFButtonOptions(
+                              width: 370.0,
+                              height: 44.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0xFF1B63FE),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
                                     font: GoogleFonts.plusJakartaSans(
                                       fontWeight: FontWeight.w500,
                                       fontStyle: FlutterFlowTheme.of(context)
@@ -883,15 +884,18 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                         .titleSmall
                                         .fontStyle,
                                   ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                              hoverColor: FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(12.0),
                         ),
-                      );
-                    },
+                      ],
+                    ),
                   ),
                 ],
               ),

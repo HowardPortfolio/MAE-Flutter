@@ -7,8 +7,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'admin_manage_user_model.dart';
 export 'admin_manage_user_model.dart';
 
@@ -34,6 +36,25 @@ class _AdminManageUserWidgetState extends State<AdminManageUserWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminManageUserModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if ((FFAppState().loggedInUser != currentUserEmail) &&
+          (FFAppState().loggedInUserPass != '')) {
+        GoRouter.of(context).prepareAuthEvent();
+
+        final user = await authManager.signInWithEmail(
+          context,
+          FFAppState().loggedInUser,
+          FFAppState().loggedInUserPass,
+        );
+        if (user == null) {
+          return;
+        }
+
+        context.pushNamedAuth(AdminManageUserWidget.routeName, context.mounted);
+      }
+    });
 
     animationsMap.addAll({
       'columnOnPageLoadAnimation': AnimationInfo(
@@ -67,6 +88,8 @@ class _AdminManageUserWidgetState extends State<AdminManageUserWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

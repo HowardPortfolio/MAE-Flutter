@@ -535,6 +535,11 @@ class _LoginWidgetState extends State<LoginWidget>
                                       if (functions.getEmailDomain(
                                               currentUserEmail) ==
                                           'admin.aproom.com') {
+                                        FFAppState().loggedInUser = _model
+                                            .emailAddressTextController.text;
+                                        FFAppState().loggedInUserPass =
+                                            _model.passwordTextController.text;
+
                                         context.pushNamedAuth(
                                             AdminHomeWidget.routeName,
                                             context.mounted);
