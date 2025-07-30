@@ -6,8 +6,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_add_user_model.dart';
@@ -35,6 +37,11 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminAddUserModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.loginUser = currentUserEmail;
+    });
 
     _model.usernameTextController ??= TextEditingController();
     _model.usernameFocusNode ??= FocusNode();
@@ -686,7 +693,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'Update Successful !',
+                                  'User Account Created',
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -716,7 +723,9 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                     FlutterFlowTheme.of(context).secondary,
                               ),
                             );
-                            context.safePop();
+
+                            context.pushNamedAuth(
+                                LoginWidget.routeName, context.mounted);
                           } else {
                             if (_model.usernameTextController.text == '') {
                               ScaffoldMessenger.of(context).showSnackBar(

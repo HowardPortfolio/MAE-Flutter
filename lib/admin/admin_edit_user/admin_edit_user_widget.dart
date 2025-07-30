@@ -600,8 +600,12 @@ class _AdminEditUserWidgetState extends State<AdminEditUserWidget>
                                   },
                                 ) ??
                                 false;
-                            await widget.userid!.delete();
-                            context.safePop();
+                            if (confirmDialogResponse) {
+                              await widget.userid!.delete();
+                              context.safePop();
+                            } else {
+                              return;
+                            }
                           },
                           text: 'Remove Account',
                           options: FFButtonOptions(

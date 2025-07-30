@@ -5,6 +5,12 @@ import 'admin_add_user_widget.dart' show AdminAddUserWidget;
 import 'package:flutter/material.dart';
 
 class AdminAddUserModel extends FlutterFlowModel<AdminAddUserWidget> {
+  ///  Local state fields for this page.
+
+  String? loginUser;
+
+  String? userPass;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for Username widget.

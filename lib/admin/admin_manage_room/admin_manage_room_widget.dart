@@ -790,7 +790,7 @@ class _AdminManageRoomWidgetState extends State<AdminManageRoomWidget> {
                     alignment: AlignmentDirectional(1.0, 1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 30.0),
                       child: FlutterFlowIconButton(
                         borderRadius: 8.0,
                         buttonSize: 40.0,
