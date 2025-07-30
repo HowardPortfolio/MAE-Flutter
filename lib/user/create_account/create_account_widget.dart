@@ -770,23 +770,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget>
                                                       .secondary,
                                             ),
                                           );
-                                          if (currentJwtToken != '') {
-                                            if (Navigator.of(context)
-                                                .canPop()) {
-                                              context.pop();
-                                            }
-                                            context.pushNamedAuth(
-                                                AdminAddUserWidget.routeName,
-                                                context.mounted);
-                                          } else {
-                                            if (Navigator.of(context)
-                                                .canPop()) {
-                                              context.pop();
-                                            }
-                                            context.pushNamedAuth(
-                                                LoginWidget.routeName,
-                                                context.mounted);
+                                          if (Navigator.of(context).canPop()) {
+                                            context.pop();
                                           }
+                                          context.pushNamedAuth(
+                                              LoginWidget.routeName,
+                                              context.mounted);
                                         } else {
                                           if (_model.usernameTextController
                                                       .text ==
