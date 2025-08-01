@@ -624,8 +624,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                   (_model.passwordTextController.text ==
                                       _model.confirmPasswordTextController
                                           .text) &&
-                                  (_model.usernameTextController.text !=
-                                          '') &&
+                                  (_model.usernameTextController.text != '') &&
                                   ((functions.getEmailDomain(_model
                                               .emailTextController.text) !=
                                           'admin.aproom.com') &&
@@ -634,7 +633,9 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                           'rec.aproom.com'))) {
                                 GoRouter.of(context).prepareAuthEvent();
                                 if (_model.passwordTextController.text !=
-                                    _model.confirmPasswordTextController.text) {
+                                        _model.confirmPasswordTextController
+                                            .text ||
+                                    _model.passwordTextController.text == '') {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -748,8 +749,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                     ),
                                   );
                                 } else {
-                                  if ((_model.emailTextController.text ==
-                                              '') ||
+                                  if ((_model.emailTextController.text == '') ||
                                       (functions.getEmailDomain(_model
                                               .emailTextController.text) ==
                                           'admin.aproom.com') ||

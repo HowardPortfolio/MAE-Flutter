@@ -55,6 +55,10 @@ class _ReceptionistHomeWidgetState extends State<ReceptionistHomeWidget>
               .where(
                 'BookingDate',
                 isEqualTo: functions.getCurrentDate(),
+              )
+              .where(
+                'Status',
+                isEqualTo: 'Accepted',
               ),
         );
         _model.isBookedNow = await actions.isRoomCurrentlyBooked(
@@ -197,10 +201,15 @@ class _ReceptionistHomeWidgetState extends State<ReceptionistHomeWidget>
   Widget build(BuildContext context) {
     return StreamBuilder<List<BookingRecord>>(
       stream: queryBookingRecord(
-        queryBuilder: (bookingRecord) => bookingRecord.where(
-          'BookingDate',
-          isGreaterThanOrEqualTo: functions.getCurrentDate(),
-        ),
+        queryBuilder: (bookingRecord) => bookingRecord
+            .where(
+              'BookingDate',
+              isGreaterThanOrEqualTo: functions.getCurrentDate(),
+            )
+            .where(
+              'Status',
+              isEqualTo: 'Accepted',
+            ),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.

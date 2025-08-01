@@ -419,7 +419,9 @@ class _AdminManageRoomWidgetState extends State<AdminManageRoomWidget> {
                                               size: 24.0,
                                             ),
                                             onPressed: () {
-                                              print('IconButton pressed ...');
+                                              _model.isVisible =
+                                                  !_model.isVisible;
+                                              safeSetState(() {});
                                             },
                                           ),
                                         ),
