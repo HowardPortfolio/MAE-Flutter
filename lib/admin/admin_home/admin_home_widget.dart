@@ -269,7 +269,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                             crossAxisCount: 2,
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
-                            childAspectRatio: 1.0,
+                            childAspectRatio: 1.5,
                           ),
                           primary: false,
                           shrinkWrap: true,
@@ -286,7 +286,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                               },
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width * 0.4,
-                                height: 160.0,
+                                height: 120.0,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFF1F4F8),
                                   borderRadius: BorderRadius.circular(24.0),
@@ -342,7 +342,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                               },
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width * 0.4,
-                                height: 160.0,
+                                height: 120.0,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFF1F4F8),
                                   borderRadius: BorderRadius.circular(24.0),
@@ -422,7 +422,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                   alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Container(
                     width: double.infinity,
-                    height: 385.71,
+                    height: MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       color: Colors.white,
                     ),
@@ -435,9 +435,10 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                           0,
                           0,
                           0,
-                          30.0,
+                          80.0,
                         ),
                         shrinkWrap: true,
+                        physics: const AlwaysScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         children: [
                           StreamBuilder<List<BookingRecord>>(
@@ -460,8 +461,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                               List<BookingRecord> columnBookingRecordList =
                                   snapshot.data!;
 
-                              return SingleChildScrollView(
-                                child: Column(
+                              return Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: List.generate(
                                       columnBookingRecordList.length,
@@ -510,7 +510,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
-                                                  0.85,
+                                                  0.8,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
@@ -722,9 +722,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                                       ),
                                     );
                                   }),
-                                ),
-                              ).animateOnPageLoad(
-                                  animationsMap['columnOnPageLoadAnimation2']!);
+                                );
                             },
                           ),
                         ],

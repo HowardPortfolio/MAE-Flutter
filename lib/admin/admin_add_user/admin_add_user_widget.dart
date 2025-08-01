@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
+
 import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -616,21 +616,17 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 16.0, 0.0, 0.0),
-                          child: FFButtonWidget(
+                              16.0, 16.0, 16.0, 0.0),
+                          child: Container(
+                            width: double.infinity,
+                            child: FFButtonWidget(
                             onPressed: () async {
                               var _shouldSetState = false;
                               if ((_model.passwordTextController.text != '') &&
                                   (_model.passwordTextController.text ==
                                       _model.confirmPasswordTextController
                                           .text) &&
-                                  (_model.usernameTextController.text != '') &&
-                                  ((functions.getEmailDomain(_model
-                                              .emailTextController.text) !=
-                                          'admin.aproom.com') &&
-                                      (functions.getEmailDomain(_model
-                                              .emailTextController.text) !=
-                                          'rec.aproom.com'))) {
+                                  (_model.usernameTextController.text != '')) {
                                 GoRouter.of(context).prepareAuthEvent();
                                 if (_model.passwordTextController.text !=
                                         _model.confirmPasswordTextController
@@ -749,17 +745,11 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                     ),
                                   );
                                 } else {
-                                  if ((_model.emailTextController.text == '') ||
-                                      (functions.getEmailDomain(_model
-                                              .emailTextController.text) ==
-                                          'admin.aproom.com') ||
-                                      (functions.getEmailDomain(_model
-                                              .emailTextController.text) ==
-                                          'rec.aproom.com')) {
+                                  if (_model.emailTextController.text == '') {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Invalid email/ Domain not allowed!',
+                                          'Please enter an email address!',
                                           style: FlutterFlowTheme.of(context)
                                               .titleSmall
                                               .override(
@@ -846,13 +836,10 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                                         ),
                                       );
                                     } else {
-                                      if (_shouldSetState) safeSetState(() {});
                                       return;
                                     }
                                   }
                                 }
-
-                                if (_shouldSetState) safeSetState(() {});
                                 return;
                               }
 
@@ -860,10 +847,9 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                             },
                             text: 'Create Account',
                             options: FFButtonOptions(
-                              width: 370.0,
                               height: 44.0,
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
+                                  24.0, 0.0, 24.0, 0.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: Color(0xFF1B63FE),
@@ -892,6 +878,7 @@ class _AdminAddUserWidgetState extends State<AdminAddUserWidget>
                               borderRadius: BorderRadius.circular(12.0),
                               hoverColor: FlutterFlowTheme.of(context).primary,
                             ),
+                          ),
                           ),
                         ),
                       ],
