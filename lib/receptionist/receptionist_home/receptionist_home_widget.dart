@@ -201,15 +201,10 @@ class _ReceptionistHomeWidgetState extends State<ReceptionistHomeWidget>
   Widget build(BuildContext context) {
     return StreamBuilder<List<BookingRecord>>(
       stream: queryBookingRecord(
-        queryBuilder: (bookingRecord) => bookingRecord
-            .where(
-              'BookingDate',
-              isGreaterThanOrEqualTo: functions.getCurrentDate(),
-            )
-            .where(
-              'Status',
-              isEqualTo: 'Accepted',
-            ),
+        queryBuilder: (bookingRecord) => bookingRecord.where(
+          'BookingDate',
+          isGreaterThanOrEqualTo: functions.getCurrentDate(),
+        ),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
